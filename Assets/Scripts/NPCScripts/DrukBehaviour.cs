@@ -8,6 +8,10 @@ public class DrukBehaviour : MonoBehaviour {
     private float waking;
     private float turning;
 
+    //deathTime is the time interval that is going to call "Deth"
+    public float deathTime = 3f;
+
+    //Variables to the movement
     private bool flag1, flag2;
     public int turnspeed;
     // Use this for initialization
@@ -19,6 +23,8 @@ public class DrukBehaviour : MonoBehaviour {
 
         flag1 = true;
         flag1 = true;
+
+        InvokeRepeating("Death", deathTime, deathTime);
     }
 
     // Update is called once per frame
@@ -66,5 +72,15 @@ public class DrukBehaviour : MonoBehaviour {
         }
 
 
+    }
+
+    void Death()
+    {
+        int rnd = UnityEngine.Random.Range(0, 100);
+
+        if (rnd > 60)
+        {
+            Destroy(gameObject, 2f);
+        }
     }
 }
