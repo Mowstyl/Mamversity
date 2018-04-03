@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class TurningAndWalking : MonoBehaviour {
 
     private Animator anim;
     private float waking;
