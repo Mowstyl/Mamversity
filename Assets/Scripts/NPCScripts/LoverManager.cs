@@ -18,7 +18,7 @@ public class LoverManager : MonoBehaviour {
 	// Update is called once per frame
 	void Spawn () {
         if (numLovers <= 0) { return; }
-        for (; numLovers >= 0 ; numLovers --)
+        for (; numLovers > 0 ; numLovers --)
         {
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);
             Instantiate(lover, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
