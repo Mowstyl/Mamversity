@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalVariables : MonoBehaviour {
-	private static float TIME=450;
+	private static GameTime gameTime;
 	private static string text="Nothing";
 	private static List<Subject> subjectList = new List<Subject> {
 		new Subject("Fisica",
@@ -16,8 +16,21 @@ public class GlobalVariables : MonoBehaviour {
 			new Teacher("Quemasda")
 		)
 	};
+
+	public GameTimeStruct getTime() {
+		GameTimeStruct gts = new GameTimeStruct ();
+		gts.sec = gameTime.sec;
+		gts.min = gameTime.min;
+		gts.hour = gameTime.hour;
+		gts.day = gameTime.day;
+		gts.season = gameTime.season;
+		gts.year = gameTime.year;
+		return gts;
+	}
+
 	// Use this for initialization
 	void Start () {
+		gameTime = new GameTime ();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +45,10 @@ public class GlobalVariables : MonoBehaviour {
 	}
 }
 
+public struct GameTimeStruct {
+	public int sec, min, hour, day, season, year;
+}
+
 class GameTime {
 	private static int sInM = 60;
 	private static int mInH = 60;
@@ -39,13 +56,13 @@ class GameTime {
 	private static int dInSs = 28;
 	private static int ssInY = 4;
 
-	int sec { get; }
-	int min { get; }
-	int hour { get; }
-	int day { get; }
-	int season { get; }
-	int year { get; }
-	float mult { get; set; }
+	public int sec { get; private set; }
+	public int min { get; private set; }
+	public int hour { get; private set; }
+	public int day { get; private set; }
+	public int season { get; private set; }
+	public int year { get; private set; }
+	public float mult { get;  private set; }
 
 	public GameTime (int day, int season, int year, float mult)
 	{
@@ -58,18 +75,12 @@ class GameTime {
 		this.mult = mult;
 	}
 
-	public GameTime (int day, int season, int year)
-	{
-		GameTime (day, season, year, 60.0);
-	}
+	public GameTime (int day, int season, int year) : this (day, season, year, (float) 60) { }
 
-	public GameTime()
-	{
-		GameTime (1, 1, 2015);
-	}
+	public GameTime() : this (1, 1, 2015) { }
 
-	public void addSeconds(int seconds) {
-		sec += seconds * mult;
+	public void addSeconds(int seconds, float speed) {
+		sec += (int) (seconds * mult * speed);
 		if (sec >= sInM)
 		{
 			min += (int) sec / sInM;
@@ -96,10 +107,15 @@ class GameTime {
 							year += (int) season / ssInY;
 							season = season % ssInY;
 							season++;
+						}
 					}
 				}
 			}
 		}
+	}
+
+	public void addSeconds(int seconds) {
+		addSeconds (seconds, 1);
 	}
 }
 
