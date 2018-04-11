@@ -14,29 +14,60 @@ public class ClockScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		globalVariables = new GlobalVariables ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float time = Time.time;
 		if(last_update + 1 <= time){
-			int sec = globalVariables.getTime().sec;
+			float sec = globalVariables.getTime().sec;
 			int min = globalVariables.getTime().min;
 			int hour = globalVariables.getTime().hour;
 			int day = globalVariables.getTime().day;
 			int season = globalVariables.getTime().season;
 			int year = globalVariables.getTime().year;
-			String min_string;
-			String hour_string;
+
+			String sec_string, min_string, hour_string, day_string, season_string, year_string;
+
+			sec_string = sec.ToString ();
+			min_string = min.ToString ();
+			hour_string = hour.ToString ();
+			day_string = day.ToString ();
+
+			if (sec < 10) {
+				sec_string = '0' + sec_string;
+			}
+
 			if (min < 10) {
-				min_string = '0' + min.ToString();
-			} else
-				min_string = min.ToString();
+				min_string = '0' + min_string;
+			}
+
 			if (hour < 10) {
-				hour_string = '0' + hour.ToString();
-			} else
-				hour_string = hour.ToString();
-			text.text = hour_string+ " : " + min_string;
+				hour_string = '0' + hour_string;
+			}
+
+			if (day < 10) {
+				day_string = '0' + day_string;
+			}
+
+			switch (season) {
+			case (int) Seasons.WINTER:
+				season_string = "Winter";
+				break;
+			case (int) Seasons.SPRING:
+				season_string = "Spring";
+				break;
+			case (int) Seasons.SUMMER:
+				season_string = "Summer";
+				break;
+			default:
+				season_string = "Fall";
+			}
+
+			year_string = year.ToString ();
+
+			text.text = year_string + ", " + season_string + " " + day_string + hour_string+ " : " + min_string+ " : " + sec_string;
 			last_update = time;
 		}
 	}
