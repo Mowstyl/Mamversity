@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainCharacter : MonoBehaviour {
-	private string name;
+	private string playername;
 	private string surname;
 	private int sociability;
 	private int inner_peace;
@@ -24,10 +24,10 @@ public class MainCharacter : MonoBehaviour {
 	}
 
 	public string getName(){
-		return name;
+		return playername;
 	}
 	public void setName(string new_name){
-		name = new_name;
+		playername = new_name;
 	}
 	public string getSurname(){
 		return surname;

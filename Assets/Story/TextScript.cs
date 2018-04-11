@@ -7,11 +7,10 @@ using UnityEngine.Events;
 public class TextScript : MonoBehaviour {
 
 	public Text text;
-	public GlobalVariables global_variables;
 
 	// Use this for initialization
 	void Start () {
-		text.text = global_variables.getText ();		
+		text.text = GlobalVariables.getText ();		
 	}
 	
 	// Update is called once per frame
