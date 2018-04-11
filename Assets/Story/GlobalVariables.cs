@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVariables {
+public partial class GlobalVariables {
 	private static GameTime gameTime = new GameTime();
 	private static string text="Nothing";
 	private static List<Subject> subjectList = new List<Subject> {
