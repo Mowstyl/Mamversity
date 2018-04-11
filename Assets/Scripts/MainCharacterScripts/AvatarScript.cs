@@ -14,8 +14,6 @@ public class AvatarScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       
-
         m_CharacterManager = GetComponent<M3DCharacterManager>();
     }
 
