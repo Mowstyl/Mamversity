@@ -10,23 +10,22 @@ public class ClockScript : MonoBehaviour {
 	private float starting_time;
 	private float last_update;
 	public Text text;
-	public GlobalVariables globalVariables;
 
 	// Use this for initialization
 	void Start () {
-		globalVariables = new GlobalVariables ();
+		
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		float time = Time.time;
 		if(last_update + 1 <= time){
-			float sec = globalVariables.getTime().sec;
-			int min = globalVariables.getTime().min;
-			int hour = globalVariables.getTime().hour;
-			int day = globalVariables.getTime().day;
-			int season = globalVariables.getTime().season;
-			int year = globalVariables.getTime().year;
+			float sec = GlobalVariables.getTime().sec;
+			int min = GlobalVariables.getTime().min;
+			int hour = GlobalVariables.getTime().hour;
+			int day = GlobalVariables.getTime().day;
+			int season = GlobalVariables.getTime().season;
+			int year = GlobalVariables.getTime().year;
 
 			String sec_string, min_string, hour_string, day_string, season_string, year_string;
 

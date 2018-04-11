@@ -1,20 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 
-public class TextScript : MonoBehaviour {
-
-	public Text text;
-
+public class Director : MonoBehaviour {
+	
 	// Use this for initialization
 	void Start () {
-		text.text = GlobalVariables.getText ();		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+		GlobalVariables.getGameTime().addSeconds (Time.deltaTime);
 	}
 }

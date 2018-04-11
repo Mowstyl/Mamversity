@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVariables : MonoBehaviour {
+public class GlobalVariables {
 	private static GameTime gameTime = new GameTime();
 	private static string text="Nothing";
 	private static List<Subject> subjectList = new List<Subject> {
@@ -17,7 +17,11 @@ public class GlobalVariables : MonoBehaviour {
 		)
 	};
 
-	public GameTimeStruct getTime() {
+	public static GameTime getGameTime() {
+		return gameTime;
+	}
+
+	public static GameTimeStruct getTime() {
 		GameTimeStruct gts = new GameTimeStruct ();
 		gts.sec = gameTime.sec;
 		gts.min = gameTime.min;
@@ -28,21 +32,12 @@ public class GlobalVariables : MonoBehaviour {
 		return gts;
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		gameTime.addSeconds (Time.deltaTime);
+	public static string getText() {
+		return text;
 	}
 
-	public void setText(string input){
-		text = input;
-	}
-	public string getText(){
-		return text;
+	public static void setText(string s) {
+		text = s;
 	}
 }
 
@@ -58,7 +53,7 @@ public enum Seasons {
 	SUMMER = 4
 }
 
-class GameTime {
+public class GameTime {
 	private static int sInM = 60;
 	private static int mInH = 60;
 	private static int hInD = 24;
