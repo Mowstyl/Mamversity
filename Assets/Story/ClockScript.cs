@@ -18,7 +18,7 @@ public class ClockScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		float time = Time.time;
 		if(last_update + 1 <= time){
 			float sec = globalVariables.getTime().sec;
@@ -71,7 +71,5 @@ public class ClockScript : MonoBehaviour {
 			text.text = year_string + ", " + season_string + " " + day_string + "\n" + hour_string+ " : " + min_string+ " : " + sec_string;
 			last_update = time;
 		}
-	}
-	void FixedUpdate(){
 	}
 }
