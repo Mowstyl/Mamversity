@@ -34,8 +34,8 @@ public class GlobalVariables : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		gameTime.addSeconds (Time.fixedDeltaTime);
+	void Update () {
+		gameTime.addSeconds (Time.deltaTime);
 	}
 
 	public void setText(string input){

@@ -63,11 +63,12 @@ public class ClockScript : MonoBehaviour {
 				break;
 			default:
 				season_string = "Fall";
+				break;
 			}
 
 			year_string = year.ToString ();
 
-			text.text = year_string + ", " + season_string + " " + day_string + hour_string+ " : " + min_string+ " : " + sec_string;
+			text.text = year_string + ", " + season_string + " " + day_string + "\n" + hour_string+ " : " + min_string+ " : " + sec_string;
 			last_update = time;
 		}
 	}
