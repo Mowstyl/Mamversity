@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 632f38ad73514c84d81d1413ecf1fe09
+timeCreated: 1472549982
+licenseType: Free
+PluginImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  platformData:
+    Any:
+      enabled: 1
+      settings: {}
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: brainybeard building generator
+  assetBundleVariant: 
