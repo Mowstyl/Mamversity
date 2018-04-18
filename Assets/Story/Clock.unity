@@ -1176,6 +1176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 670838430}
+  displayer: {fileID: 372848816}
 --- !u!1 &1394473013
 GameObject:
   m_ObjectHideFlags: 0
