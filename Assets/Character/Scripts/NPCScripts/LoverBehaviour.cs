@@ -18,9 +18,19 @@ public class LoverBehaviour : MonoBehaviour {
     private bool flag1, flag2;
     public int turnspeed;
     public GameObject drunk;
+    public ConversationScript conversation;
+
+   
+    public GameObject two;
+
+    private TextMesh oneText;
+    private TextMesh twoText;
+
     // Use this for initialization
     void Start()
     {
+        oneText = GetComponent<TextMesh>();
+        //twoText = two.GetComponent<TextMesh>();
         anim = GetComponent<Animator>();
         waking = 0.0f;
         turning = 0.0f;
@@ -84,15 +94,15 @@ public class LoverBehaviour : MonoBehaviour {
 
    void Talk()
     {
-        
 
-        GameObject closest;
+
+        GameObject closest = new GameObject();
         float distance = Mathf.Infinity;
         var position = transform.position;
         GameObject[] npcs;
         npcs = GameObject.FindGameObjectsWithTag("Main Character");
         if (npcs.Length == 0){
-            GetComponent<TextMesh>().text = "aqui no hay nadie";
+           // GetComponent<ScriptableObject>(). = "aqui no hay nadie";
         }
         // Find the closest one
         foreach (GameObject chara in npcs)
@@ -105,11 +115,33 @@ public class LoverBehaviour : MonoBehaviour {
                 distance = curDistance;
             }
         }
+        two = closest;
+        twoText = two.GetComponent<TextMesh>();
+        
         if (distance < 5)
         {
+            if (twoText != null)
+            {
+                int rnd = UnityEngine.Random.Range(0, 3);
+                switch (rnd)
+                {
+                    case 0:
+                        twoText.text = "You are beautiful";
+                        oneText.text = "You're not, sry :)";
+                        break;
+                    case 1:
+                        twoText.text = "Hellow";
+                        oneText.text = "Hi";
+                        break;
+                    case 2:
+                        twoText.text = "Bye";
+                        oneText.text = "I hope I will never see you again";
+                        break;
+                }
+            }
             //Debug.Log("The closest npc is" + closest.tag.ToString());
             //closest.SendMessage("dialogue");
-            GetComponent<TextMesh>().text = "You are to close";
+            //GetComponent<TextMesh>().text = "You are to close";
         }
         else { GetComponent<TextMesh>().text = "You are to far"; }
 
@@ -135,5 +167,24 @@ public class LoverBehaviour : MonoBehaviour {
         //}
         
         
+    }
+    void Conversation()
+    {
+        int rnd = UnityEngine.Random.Range(0, 2);
+        switch (rnd)
+        {
+            case 0:
+                oneText.text = "You are beautiful";
+                twoText.text = "You're not, sry :)";
+                break;
+            case 1:
+                oneText.text = "Hellow";
+                twoText.text = "Hi";
+                break;
+            case 2:
+                oneText.text = "Bye";
+                twoText.text = "I hope I will never see you again";
+                break;
+        }
     }
 }
