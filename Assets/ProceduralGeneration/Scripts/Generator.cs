@@ -24,8 +24,9 @@ public class Generator : MonoBehaviour {
 		floor.name = "floor";
 		floor.AddComponent<MeshRenderer> ();
 		floor.AddComponent<MeshFilter> ();
-		floor.AddComponent<MeshCollider> ();
+
 		floor.GetComponent<MeshFilter> ().mesh = MakeFloor();
+		floor.AddComponent<MeshCollider> ();
 		floor.GetComponent<MeshRenderer> ().material = new Material (Shader.Find("Specular"));
 		//floor.GetComponent<MeshRenderer> ().material.SetTextureScale ("Diffuse", new Vector2 (100, 0));
 		//floor.renderer.material.mainTexture = Resources.Load("Floor") as Texture2D;
