@@ -127,7 +127,7 @@ public class GameTime {
 
 class Teacher {
 	private static int lastId = 0;
-	int id { get; }
+	public int id { get; private set; }
 	string name { get; set; }
 	//void otherThings;
 
@@ -140,7 +140,7 @@ class Teacher {
 
 class Subject {
 	private static int lastId = 0;
-	int id { get; }
+	public int id { get; private set; }
 	string name { get; set; }
 	//void minigame;
 	Teacher teacher { get; set; }
