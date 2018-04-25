@@ -18,7 +18,7 @@ public class LoverBehaviour : MonoBehaviour {
     private bool flag1, flag2;
     public int turnspeed;
     public GameObject drunk;
-    public ConversationScript conversation;
+    //public ConversationScript conversation;
 
    
     public GameObject two;
