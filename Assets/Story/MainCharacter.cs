@@ -5,8 +5,8 @@ using UnityEngine;
 public class MainCharacter : MonoBehaviour {
 	private string playername;
 	private string surname;
-	private int sociability;
-	private int inner_peace;
+	private int sociability=70;
+	private int inner_peace=30;
 	private int drunk_relationship;
 	private int lover_relationship;
 	private int nerd_relationship;

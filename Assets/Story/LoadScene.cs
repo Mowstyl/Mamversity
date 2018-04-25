@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour {
-	public void ChangeToScene (){
-		SceneManager.LoadScene("HUD",LoadSceneMode.Single);
+	public void ChangeToScene (string sceneName){
+		SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
 	}
 }
