@@ -100,7 +100,7 @@ public class LoverBehaviour : MonoBehaviour {
         float distance = Mathf.Infinity;
         var position = transform.position;
         GameObject[] npcs;
-        npcs = GameObject.FindGameObjectsWithTag("Main Character");
+        npcs = GameObject.FindGameObjectsWithTag("Drunk");
         if (npcs.Length == 0){
            // GetComponent<ScriptableObject>(). = "aqui no hay nadie";
         }
