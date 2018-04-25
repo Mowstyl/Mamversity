@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Generator : MonoBehaviour {
 
     public GameObject[] seed;
@@ -11,18 +12,14 @@ public class Generator : MonoBehaviour {
 	public Vector3 floorMax;
 	public Vector3 floorMin;
 
-	// Use this for initialization
 	public void Start () {
 		
         Generate();
 
 	}
-	
-	// Update is called once per frame
+
 	public void Generate () {
 		
-		/*GameObject thePlayer = GameObject.Find("VoronoiDemo");
-		VoronoiDemo playerScript = thePlayer.GetComponent<VoronoiDemo>();*/
 		GameObject floor = new GameObject ();
 		floor.name = "floor";
 		floor.AddComponent<MeshRenderer> ();
@@ -32,7 +29,6 @@ public class Generator : MonoBehaviour {
 		floor.GetComponent<MeshRenderer> ().material = new Material (Shader.Find("Specular"));
 		//floor.GetComponent<MeshRenderer> ().material.SetTextureScale ("Diffuse", new Vector2 (100, 0));
 		//floor.renderer.material.mainTexture = Resources.Load("Floor") as Texture2D;
-
 
 
 		for(int i = 0; i<centers.Count; ++i){
@@ -47,18 +43,6 @@ public class Generator : MonoBehaviour {
 		for(int i =0;i<(edges.Count/2);i++){
 			MakeStreet (edges.ToArray()[2*i],edges.ToArray()[2*i+1],5,i);
 		}
-
-
-		/*for (int i = 0; i < playerScript.centers.Count; i++){
-			GameObject building = new GameObject ();
-			building.name = "building_" + i;
-			//building.AddComponent<MeshRenderer> ();
-			//building.AddComponent<MeshFilter> ();
-			//building.AddComponent<Generator> ();
-			building.transform.position=centers.ToArray()[i];
-		}*/
-		/*GameObject Building = Instantiate(seed[Random.Range(0, seed.Length)], transform.position, transform.rotation);
-		Building.transform.localScale = new Vector3(scale, scale, scale);*/
 	}
 	public Mesh MakeFloor(){
 		List<Vector3> vertex = new List<Vector3> ();
@@ -91,8 +75,6 @@ public class Generator : MonoBehaviour {
 
 		meshA.vertices = vertex.ToArray();
 		meshA.triangles = tri.ToArray();
-
-		//meshA.RecalculateNormals();
 
 		return meshA;
 	}
@@ -144,6 +126,7 @@ public class Generator : MonoBehaviour {
 		Material material = new Material(Shader.Find("Specular"));
 		material.color = Color.black;
 		street.GetComponent<MeshRenderer> ().material = material;
+		street.AddComponent<MeshCollider> ();
 	}
 
 
