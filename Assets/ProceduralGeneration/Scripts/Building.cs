@@ -28,6 +28,7 @@ public class Building : MonoBehaviour {
             led.transform.localRotation = this.transform.GetChild(i).transform.localRotation;
             led.transform.localPosition = new Vector3(0, 1, 0);
             led.transform.localScale = new Vector3(1, 1.5f/transform.GetChild(i).transform.localScale.y, 1);
+			//led.name = "building_"+i;
         }
 		//this.transform.position = new Vector3(0.0f+Random.Range(1,254), 1.5f+Random.Range(1,254), 0.0f+Random.Range(1,254));
     }
