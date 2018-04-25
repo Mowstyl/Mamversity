@@ -10,7 +10,7 @@ public class MainCharacter : MonoBehaviour {
 	private int drunk_relationship;
 	private int lover_relationship;
 	private int nerd_relationship;
-	private int madness;
+	private int madness = 15;
 
 
 	// Use this for initialization
