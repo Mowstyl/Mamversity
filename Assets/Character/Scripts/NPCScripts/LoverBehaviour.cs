@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoverBehaviour : MonoBehaviour {
+public class LoverBehaviour : MonoBehaviour
+{
 
     private Animator anim;
     private float waking;
@@ -12,15 +13,15 @@ public class LoverBehaviour : MonoBehaviour {
     private Vector3 offsetToDrunk;
 
     //deathTime is the time interval that is going to call "Deth"
-    public float deathTime = 3f;
+    public float deathTime = 1f;
 
     //Variables to the movement
-    private bool flag1, flag2,isTalking,courrutine;
+    private bool flag1, flag2, isTalking, courrutine;
     public int turnspeed;
     public GameObject drunk;
     //public ConversationScript conversation;
 
-   
+
     public GameObject two;
 
     private TextMesh oneText;
@@ -54,7 +55,8 @@ public class LoverBehaviour : MonoBehaviour {
         {
             Movement();
         }
-        else {
+        else
+        {
             anim.SetFloat("waking", 0.0f);
         }
     }
@@ -103,6 +105,8 @@ public class LoverBehaviour : MonoBehaviour {
 
     }
 
+   
+
     void Talk()
     {
         if (!isTalking)
@@ -134,6 +138,7 @@ public class LoverBehaviour : MonoBehaviour {
             scr.isTalking = true;
             if (distance < 5)
             {
+                StopMov(4.0f);
                 if (twoText != null)
                 {
                     int rnd = UnityEngine.Random.Range(0, 3);
@@ -141,40 +146,23 @@ public class LoverBehaviour : MonoBehaviour {
                     {
                         case 0:
                             twoText.text = "You are beautiful";
-                            while (!courrutine) {
-                                StartCoroutine(WaitForConversation(3));
-                            }
+                            
                             oneText.text = "You're not, sry :)";
-                            while (!courrutine)
-                            {
-                                StartCoroutine(WaitForConversation(3));
-                            }
+                           
                             twoText.text = "So sad";
                             break;
                         case 1:
                             twoText.text = "Hellow";
-                            while (!courrutine)
-                            {
-                                StartCoroutine(WaitForConversation(3));
-                            }
+                           
                             oneText.text = "Hi";
-                            while (!courrutine)
-                            {
-                                StartCoroutine(WaitForConversation(3));
-                            }
+                           
                             twoText.text = "See you later aligater";
                             break;
                         case 2:
                             twoText.text = "Bye";
-                            if (!courrutine)
-                            {
-                                StartCoroutine(WaitForConversation(3));
-                            }
+                           
                             oneText.text = "I hope I will never see you again";
-                            if (!courrutine)
-                            {
-                                StartCoroutine(WaitForConversation(3));
-                            }
+                           
                             twoText.text = "Uh lala";
                             break;
                     }
@@ -182,33 +170,16 @@ public class LoverBehaviour : MonoBehaviour {
             }
             else { GetComponent<TextMesh>().text = "You are to far"; }
             isTalking = false;
-            scr.isTalking = true;
-        } 
+            scr.isTalking = false;
+        }
     }
 
-    IEnumerator WaitForConversation(int sec) {
+    IEnumerator StopMov(float sec)
+    {
         courrutine = true;
+        anim.SetFloat("waking", 0);
         yield return new WaitForSeconds(sec);
         courrutine = false;
     }
 
-    void Conversation()
-    {
-        int rnd = UnityEngine.Random.Range(0, 2);
-        switch (rnd)
-        {
-            case 0:
-                oneText.text = "You are beautiful";
-                twoText.text = "You're not, sry :)";
-                break;
-            case 1:
-                oneText.text = "Hellow";
-                twoText.text = "Hi";
-                break;
-            case 2:
-                oneText.text = "Bye";
-                twoText.text = "I hope I will never see you again";
-                break;
-        }
-    }
 }
