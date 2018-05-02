@@ -15,7 +15,7 @@ public class LoverBehaviour : MonoBehaviour {
     public float deathTime = 3f;
 
     //Variables to the movement
-    private bool flag1, flag2;
+    private bool flag1, flag2,isTalking,courrutine;
     public int turnspeed;
     public GameObject drunk;
     //public ConversationScript conversation;
@@ -36,7 +36,9 @@ public class LoverBehaviour : MonoBehaviour {
         turning = 0.0f;
 
         flag1 = true;
-        flag1 = true;
+        flag2 = true;
+        isTalking = false;
+        courrutine = false;
 
         phrases = new string[] { "Hi", "I love you baby", "Call me pls" };
         InvokeRepeating("Talk", deathTime, deathTime);
@@ -48,7 +50,17 @@ public class LoverBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (!isTalking)
+        {
+            Movement();
+        }
+        else {
+            anim.SetFloat("waking", 0.0f);
+        }
+    }
 
+    private void Movement()
+    {
         Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
 
         int rnd = UnityEngine.Random.Range(0, 100);
@@ -89,85 +101,97 @@ public class LoverBehaviour : MonoBehaviour {
             transform.Rotate(new Vector3(0.0f, turnspeed * turning * Time.deltaTime));
         }
 
-
     }
 
-   void Talk()
+    void Talk()
     {
-
-
-        GameObject closest = new GameObject();
-        float distance = Mathf.Infinity;
-        var position = transform.position;
-        GameObject[] npcs;
-        npcs = GameObject.FindGameObjectsWithTag("Drunk");
-        if (npcs.Length == 0){
-           // GetComponent<ScriptableObject>(). = "aqui no hay nadie";
-        }
-        // Find the closest one
-        foreach (GameObject chara in npcs)
+        if (!isTalking)
         {
-            var diff = (chara.transform.position - position);
-            var curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
+            isTalking = true;
+            GameObject closest = new GameObject();
+            float distance = Mathf.Infinity;
+            var position = transform.position;
+            GameObject[] npcs;
+            npcs = GameObject.FindGameObjectsWithTag("Drunk");
+            if (npcs.Length == 0)
             {
-                closest = chara;
-                distance = curDistance;
+                // GetComponent<ScriptableObject>(). = "aqui no hay nadie";
             }
-        }
-        two = closest;
-        twoText = two.GetComponent<TextMesh>();
-        
-        if (distance < 5)
-        {
-            if (twoText != null)
+            // Find the closest one
+            foreach (GameObject chara in npcs)
             {
-                int rnd = UnityEngine.Random.Range(0, 3);
-                switch (rnd)
+                var diff = (chara.transform.position - position);
+                var curDistance = diff.sqrMagnitude;
+                if (curDistance < distance)
                 {
-                    case 0:
-                        twoText.text = "You are beautiful";
-                        oneText.text = "You're not, sry :)";
-                        break;
-                    case 1:
-                        twoText.text = "Hellow";
-                        oneText.text = "Hi";
-                        break;
-                    case 2:
-                        twoText.text = "Bye";
-                        oneText.text = "I hope I will never see you again";
-                        break;
+                    closest = chara;
+                    distance = curDistance;
                 }
             }
-            //Debug.Log("The closest npc is" + closest.tag.ToString());
-            //closest.SendMessage("dialogue");
-            //GetComponent<TextMesh>().text = "You are to close";
-        }
-        else { GetComponent<TextMesh>().text = "You are to far"; }
-
-        //if  (GetComponent<TextMesh>().text != "")
-        //{
-        //    int rnd = UnityEngine.Random.Range(0, 3);
-        //    switch (rnd)
-        //    {
-        //        case 0:
-        //            GetComponent<TextMesh>().text = phrases[0];
-        //            break;
-        //        case 1:
-        //            GetComponent<TextMesh>().text = phrases[1];
-        //            break;
-        //        case 2:
-        //            GetComponent<TextMesh>().text = phrases[2];
-        //            break;
-        //    }
-        //}
-        //else
-        //{
-        //    GetComponent<TextMesh>().text = "";          
-        //}
-        
-        
+            two = closest;
+            twoText = two.GetComponent<TextMesh>();
+            DrukBehaviour scr = two.GetComponent<DrukBehaviour>();
+            scr.isTalking = true;
+            if (distance < 5)
+            {
+                if (twoText != null)
+                {
+                    int rnd = UnityEngine.Random.Range(0, 3);
+                    switch (rnd)
+                    {
+                        case 0:
+                            twoText.text = "You are beautiful";
+                            while (!courrutine) {
+                                StartCoroutine(WaitForConversation(3));
+                            }
+                            oneText.text = "You're not, sry :)";
+                            while (!courrutine)
+                            {
+                                StartCoroutine(WaitForConversation(3));
+                            }
+                            twoText.text = "So sad";
+                            break;
+                        case 1:
+                            twoText.text = "Hellow";
+                            while (!courrutine)
+                            {
+                                StartCoroutine(WaitForConversation(3));
+                            }
+                            oneText.text = "Hi";
+                            while (!courrutine)
+                            {
+                                StartCoroutine(WaitForConversation(3));
+                            }
+                            twoText.text = "See you later aligater";
+                            break;
+                        case 2:
+                            twoText.text = "Bye";
+                            if (!courrutine)
+                            {
+                                StartCoroutine(WaitForConversation(3));
+                            }
+                            oneText.text = "I hope I will never see you again";
+                            if (!courrutine)
+                            {
+                                StartCoroutine(WaitForConversation(3));
+                            }
+                            twoText.text = "Uh lala";
+                            break;
+                    }
+                }
+            }
+            else { GetComponent<TextMesh>().text = "You are to far"; }
+            isTalking = false;
+            scr.isTalking = true;
+        } 
     }
+
+    IEnumerator WaitForConversation(int sec) {
+        courrutine = true;
+        yield return new WaitForSeconds(sec);
+        courrutine = false;
+    }
+
     void Conversation()
     {
         int rnd = UnityEngine.Random.Range(0, 2);
