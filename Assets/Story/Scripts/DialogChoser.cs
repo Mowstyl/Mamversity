@@ -38,7 +38,7 @@ public class DialogChoser : MonoBehaviour {
 		opt2 = new DialogNode(null, "Yes, but not as much as you");
 		main_node_nodes = new DialogNode[] { opt1, opt2 };
 		main_node_opt = new string[] { "Sorry, my fault", "Are you an idiot?" };
-		dialog = new DialogNode (main_node_nodes, "Hey! Look where are you going!");
+		dialog = new DialogNode (main_node_nodes, main_node_opt, "Hey! Look where are you going!");
 		currentNode = dialog;
 	}
 	

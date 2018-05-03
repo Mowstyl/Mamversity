@@ -8,12 +8,12 @@ namespace MORPH3D {
     [InitializeOnLoad]
     public class MCSUpgrade : Editor
     {
-        public static string pathToInstallScript = "Assets/MORPH3D/Content/Packages/Editor/MCSUpgrader.cs";
-        public static string pathToPackages = "Assets/MORPH3D/Content/Packages";
-        public static string pathToPackagesCore = "Assets/MORPH3D/Content/Packages/Core.unitypackage";
-        public static string pathToPackagesFemale = "Assets/MORPH3D/Content/Packages/M3DFemale.unitypackage";
-        public static string pathToPackagesMale = "Assets/MORPH3D/Content/Packages/M3DMale.unitypackage";
-        protected static string pathToConfig = "Assets/MORPH3D/MCSUpgrade.json";
+        public static string pathToInstallScript = "Assets/Character/MORPH3D/Content/Packages/Editor/MCSUpgrader.cs";
+		public static string pathToPackages = "Assets/Character/MORPH3D/Content/Packages";
+		public static string pathToPackagesCore = "Assets/Character/MORPH3D/Content/Packages/Core.unitypackage";
+		public static string pathToPackagesFemale = "Assets/Character/MORPH3D/Content/Packages/M3DFemale.unitypackage";
+		public static string pathToPackagesMale = "Assets/Character/MORPH3D/Content/Packages/M3DMale.unitypackage";
+		protected static string pathToConfig = "Assets/Character/MORPH3D/MCSUpgrade.json";
 
         protected static MCSUpgradeWindow window = null;
 
