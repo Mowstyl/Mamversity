@@ -16,6 +16,9 @@ public class RellenatorBarScript : MonoBehaviour {
 	private int last_inner_peace;
 	private int last_sociability;
 	private int last_madness;
+
+	private float initial_x_position;
+
 	private RectTransform trans;
 	public Transform barPositionMadness;
 	public Transform textPositionMadness;
@@ -27,10 +30,11 @@ public class RellenatorBarScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		float new_x;
+		initial_x_position = barPositionMadness.position.x;
 		trans = barMadness.GetComponent<RectTransform>();
 		//float new_x = barPositionMadness.position.x - (float)0.12*mainCharacterScript.getMadness();
 		//barPositionMadness.position = new Vector3(new_x,barPositionMadness.position.y,barPositionMadness.position.z);
-		new_x = textPositionMadness.position.x - (float)0.12*mainCharacterScript.getMadness();
+		new_x = initial_x_position - (float)0.00005*(100-mainCharacterScript.getMadness());
 		textPositionMadness.position = new Vector3(new_x,textPositionMadness.position.y,textPositionMadness.position.z);
 		trans.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, mainCharacterScript.getMadness () * 5);
 		textMadness.text = mainCharacterScript.getMadness ().ToString();
@@ -38,7 +42,7 @@ public class RellenatorBarScript : MonoBehaviour {
 		trans = barInnerPeace.GetComponent<RectTransform>();
 		//new_x = barPositionInnerPeace.position.x - (float)0.12*mainCharacterScript.getInnerPeace();
 		//barPositionInnerPeace.position = new Vector3(new_x,barPositionInnerPeace.position.y,barPositionInnerPeace.position.z);
-		new_x = textPositionInnerPeace.position.x - (float)0.12*mainCharacterScript.getInnerPeace();
+		new_x = initial_x_position - (float)0.00005*(100-mainCharacterScript.getInnerPeace());
 		textPositionInnerPeace.position = new Vector3(new_x,textPositionInnerPeace.position.y,textPositionInnerPeace.position.z);
 		trans.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, mainCharacterScript.getInnerPeace () * 5);
 		textInnerPeace.text = mainCharacterScript.getInnerPeace ().ToString();
@@ -46,7 +50,7 @@ public class RellenatorBarScript : MonoBehaviour {
 		trans = barSociability.GetComponent<RectTransform>();
 		//new_x = barPositionSociability.position.x - (float)0.12*mainCharacterScript.getSociability();
 		//barPositionSociability.position = new Vector3(new_x,barPositionSociability.position.y,barPositionSociability.position.z);
-		new_x = textPositionInnerPeace.position.x - (float)0.12*mainCharacterScript.getSociability();
+		new_x = initial_x_position - (float)0.00005*(100-mainCharacterScript.getSociability());
 		textPositionSociability.position = new Vector3(new_x,textPositionSociability.position.y,textPositionSociability.position.z);
 		trans.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, mainCharacterScript.getSociability () * 5);
 		textSociability.text = mainCharacterScript.getSociability ().ToString();
@@ -58,7 +62,7 @@ public class RellenatorBarScript : MonoBehaviour {
 		if (mainCharacterScript.getMadness () != last_madness) {
 			//float new_x = barPositionMadness.position.x - (float)0.12*mainCharacterScript.getMadness();
 			//barPositionMadness.position = new Vector3(new_x,barPositionMadness.position.y,barPositionMadness.position.z);
-			new_x = textPositionMadness.position.x - (float)0.12*mainCharacterScript.getMadness();
+			new_x = initial_x_position - (float)0.00005*(100-mainCharacterScript.getMadness());
 			textPositionMadness.position = new Vector3(new_x,textPositionMadness.position.y,textPositionMadness.position.z);	
 			trans.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, mainCharacterScript.getMadness () * 5);
 			last_madness = mainCharacterScript.getMadness ();
@@ -68,20 +72,21 @@ public class RellenatorBarScript : MonoBehaviour {
 		if (mainCharacterScript.getInnerPeace () != last_inner_peace) {
 			//float new_x = barPositionInnerPeace.position.x - (float)0.12*mainCharacterScript.getInnerPeace();
 			//barPositionInnerPeace.position = new Vector3(new_x,barPositionInnerPeace.position.y,barPositionInnerPeace.position.z);
-			new_x = textPositionInnerPeace.position.x - (float)0.12*mainCharacterScript.getInnerPeace();
+			new_x = initial_x_position - (float)0.00005*(100-mainCharacterScript.getInnerPeace());
 			textPositionInnerPeace.position = new Vector3(new_x,textPositionInnerPeace.position.y,textPositionInnerPeace.position.z);
 			trans.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, mainCharacterScript.getInnerPeace () * 5);
+			last_inner_peace = mainCharacterScript.getInnerPeace ();
 			textInnerPeace.text = last_inner_peace.ToString();
 		}
 
 		if (mainCharacterScript.getSociability () != last_sociability) {
 			//float new_x = barPositionSociability.position.x - (float)0.12*mainCharacterScript.getSociability();
 			//barPositionSociability.position = new Vector3(new_x,barPositionSociability.position.y,barPositionSociability.position.z);
-			new_x = textPositionInnerPeace.position.x - (float)0.12*mainCharacterScript.getSociability();
+			new_x = initial_x_position - (float)0.00005*(100-mainCharacterScript.getSociability());
 			textPositionSociability.position = new Vector3(new_x,textPositionSociability.position.y,textPositionSociability.position.z);
 			trans.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, mainCharacterScript.getSociability () * 5);
+			last_sociability = mainCharacterScript.getSociability ();
 			textSociability.text = last_sociability.ToString();
 		}
-
 	}
 }
