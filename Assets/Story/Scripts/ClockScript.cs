@@ -18,7 +18,7 @@ public class ClockScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		float time = Time.time;
 
 		if(last_update + 1 <= time)
