@@ -40,13 +40,11 @@ public class RellenatorBarScript : MonoBehaviour {
 		int value = getValue ();
 
 		if (value != last_value) {
-			//float new_x = (barPosition.anchoredPosition.x + barPosition.sizeDelta.x / 2) - textPosition.sizeDelta.x / 2;
-			//textPosition.position = new Vector3(textPosition.position.x - value, textPosition.position.y, textPosition.position.z);
-
 			barPosition.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, value * 3);
 
 			last_value = value;
-			text.text = value.ToString() + "/" + "100";
+			//text.text = value.ToString() + "/" + "100";
+			text.text = value.ToString();
 		}
 
 	}
