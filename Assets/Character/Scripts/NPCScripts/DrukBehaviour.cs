@@ -13,24 +13,34 @@ public class DrukBehaviour : MonoBehaviour {
 
     //Variables to the movement
     private bool flag1, flag2;
+    public bool isTalking;
     public int turnspeed;
     // Use this for initialization
     void Start()
     {
+        
         anim = GetComponent<Animator>();
         waking = 0.0f;
         turning = 0.0f;
 
         flag1 = true;
-        flag1 = true;
+        flag2 = true;
+        isTalking = false;
 
-        InvokeRepeating("Death", deathTime, deathTime);
+        //InvokeRepeating("Death", deathTime, deathTime);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isTalking)
+        {
+            Movement();
+        }
+    }
 
+    private void Movement()
+    {
         Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
 
         int rnd = UnityEngine.Random.Range(0, 100);
@@ -39,11 +49,8 @@ public class DrukBehaviour : MonoBehaviour {
 
         if (flag1)
         {
-
             waking = Input.GetAxis("Vertical");
             anim.SetFloat("waking", 1.0f);
-
-
         }
         else
         {
@@ -70,7 +77,6 @@ public class DrukBehaviour : MonoBehaviour {
             turning = -1.0f;
             transform.Rotate(new Vector3(0.0f, turnspeed * turning * Time.deltaTime));
         }
-
 
     }
 
