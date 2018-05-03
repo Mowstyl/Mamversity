@@ -13,8 +13,7 @@ public class RellenatorBarScript : MonoBehaviour {
 	public Variable variable;
 
 	private int last_value;
-	private float textXOffset;
-	private float barXOffset;
+	private float barWidth;
 
 	private Func<int> getValue;
 
@@ -31,6 +30,7 @@ public class RellenatorBarScript : MonoBehaviour {
 			getValue = mainCharacterScript.getMadness;
 			break;
 		}
+		barWidth = barPosition.rect.width;
 
 		last_value = -1;
 	}
@@ -40,7 +40,7 @@ public class RellenatorBarScript : MonoBehaviour {
 		int value = getValue ();
 
 		if (value != last_value) {
-			barPosition.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, value * 3);
+			barPosition.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, barWidth * ((float) value / 100));
 
 			last_value = value;
 			//text.text = value.ToString() + "/" + "100";
