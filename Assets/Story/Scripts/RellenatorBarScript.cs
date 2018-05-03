@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class RellenatorBarScript : MonoBehaviour {
 	public MainCharacter mainCharacterScript;
+	public RectTransform barPosition;
 	public Text text;
 
-	public RectTransform barPosition;
-	public RectTransform textPosition;
 	public Variable variable;
 
 	private int last_value;
