@@ -27,6 +27,9 @@ public class LoverBehaviour : MonoBehaviour
     private TextMesh oneText;
     private TextMesh twoText;
 
+    //counter to wait
+    private int wait = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -43,6 +46,8 @@ public class LoverBehaviour : MonoBehaviour
 
         phrases = new string[] { "Hi", "I love you baby", "Call me pls" };
         InvokeRepeating("Talk", deathTime, deathTime);
+        InvokeRepeating("SumPerSecond", 1.0f, 1.0f);
+        
 
         offsetToDrunk = transform.position - drunk.transform.position;
 
@@ -63,46 +68,49 @@ public class LoverBehaviour : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
-
-        int rnd = UnityEngine.Random.Range(0, 100);
-        int rnd2 = UnityEngine.Random.Range(0, 100);
-
-
-        if (flag1)
+        if (!isTalking)
         {
+            Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
 
-            waking = Input.GetAxis("Vertical");
-            anim.SetFloat("waking", 1.0f);
+            int rnd = UnityEngine.Random.Range(0, 100);
+            int rnd2 = UnityEngine.Random.Range(0, 100);
 
+
+            if (flag1)
+            {
+
+                waking = Input.GetAxis("Vertical");
+                anim.SetFloat("waking", 1.0f);
+
+
+            }
+            else
+            {
+                waking = Input.GetAxis("Vertical");
+                anim.SetFloat("waking", 0.0f);
+            }
+
+            if (rnd > 95)
+            {
+                flag1 = !flag1;
+            }
+            if (rnd2 > 95)
+            {
+                flag2 = !flag2;
+            }
+
+            if (flag2)
+            {
+                turning = 1.0f;
+                transform.Rotate(new Vector3(0.0f, turnspeed * turning * Time.deltaTime));
+            }
+            else
+            {
+                turning = -1.0f;
+                transform.Rotate(new Vector3(0.0f, turnspeed * turning * Time.deltaTime));
+            }
 
         }
-        else
-        {
-            waking = Input.GetAxis("Vertical");
-            anim.SetFloat("waking", 0.0f);
-        }
-
-        if (rnd > 95)
-        {
-            flag1 = !flag1;
-        }
-        if (rnd2 > 95)
-        {
-            flag2 = !flag2;
-        }
-
-        if (flag2)
-        {
-            turning = 1.0f;
-            transform.Rotate(new Vector3(0.0f, turnspeed * turning * Time.deltaTime));
-        }
-        else
-        {
-            turning = -1.0f;
-            transform.Rotate(new Vector3(0.0f, turnspeed * turning * Time.deltaTime));
-        }
-
     }
 
    
@@ -138,34 +146,45 @@ public class LoverBehaviour : MonoBehaviour
             scr.isTalking = true;
             if (distance < 5)
             {
-                StopMov(4.0f);
+               // StopMov(4.0f);
                 if (twoText != null)
                 {
-                    int rnd = UnityEngine.Random.Range(0, 3);
-                    switch (rnd)
-                    {
-                        case 0:
-                            twoText.text = "You are beautiful";
+                    twoText.GetComponent<Animator>().SetFloat("waking", 0);
+                    
+                    anim.SetFloat("waking", 0);
+                    flag1 = false;
+                    flag2 = false;
+                    Talk1(twoText);
+                    //int rnd = UnityEngine.Random.Range(0, 3);
+                    //switch (rnd)
+                    //{
+                    //    case 0:
+                    //        twoText.text = "You are beautiful";
+                    //        Stop(4);
+                    //        oneText.text = "You're not, sry :)";
+                    //        Stop(4);
+                    //        twoText.text = "So sad";
+                    //        break;
+                    //    case 1:
+                    //        twoText.text = "Hellow";
+                    //        Stop(4);
+                    //        oneText.text = "Hi";
+                    //        Stop(4);
+                    //        twoText.text = "See you later aligater";
+                    //        break;
+                    //    case 2:
+                    //        twoText.text = "Bye";
+                    //        Stop(4);
+                    //        oneText.text = "I hope I will never see you again";
+                    //        Stop(4);
+                    //        twoText.text = "Uh lala";
+                    //        break;
                             
-                            oneText.text = "You're not, sry :)";
-                           
-                            twoText.text = "So sad";
-                            break;
-                        case 1:
-                            twoText.text = "Hellow";
-                           
-                            oneText.text = "Hi";
-                           
-                            twoText.text = "See you later aligater";
-                            break;
-                        case 2:
-                            twoText.text = "Bye";
-                           
-                            oneText.text = "I hope I will never see you again";
-                           
-                            twoText.text = "Uh lala";
-                            break;
-                    }
+                    //}
+                    Stop(0);
+                    Stop(0);
+                    //twoText.text = "";
+                    //oneText.text = "";
                 }
             }
             else { GetComponent<TextMesh>().text = "You are to far"; }
@@ -174,8 +193,94 @@ public class LoverBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator StopMov(float sec)
+    void Stop(int sec) {
+        
+        while (true)
+        {
+            int rnd = UnityEngine.Random.Range(0, 100);
+            if (rnd > 98)
+            {
+                break;
+            }
+        }
+    }
+
+    void SumPerSecond()
     {
+        wait++;
+    }
+
+    void Talk1(TextMesh twoText)
+    {
+        StartCoroutine(StopMov(4,twoText));
+        //int rnd = UnityEngine.Random.Range(0, 3);
+        //switch (rnd)
+        //{
+        //    case 0:
+        //        twoText.text = "You are beautiful";
+        //        StartCoroutine(StopMov(4));
+        //        oneText.text = "You're not, sry :)";
+        //        StartCoroutine(StopMov(4));
+        //        twoText.text = "So sad";
+        //        break;
+        //    case 1:
+        //        twoText.text = "Hellow";
+        //        StartCoroutine(StopMov(4));
+        //        oneText.text = "Hi";
+        //        StartCoroutine(StopMov(4));
+        //        twoText.text = "See you later aligater";
+        //        break;
+        //    case 2:
+        //        twoText.text = "Bye";
+        //        StartCoroutine(StopMov(4));
+        //        oneText.text = "I hope I will never see you again";
+        //        StartCoroutine(StopMov(4));
+        //        twoText.text = "Uh lala";
+        //        break;
+
+        //}
+    }
+
+    void Talk2()
+    {
+
+    }
+
+    void Talk3()
+    {
+
+    }
+
+
+    IEnumerator StopMov(float sec, TextMesh twoText)
+    {
+        int rnd = UnityEngine.Random.Range(0, 3);
+        switch (rnd)
+        {
+            case 0:
+                twoText.text = "You are beautiful";
+                yield return new WaitForSeconds(sec);
+                oneText.text = "You're not, sry :)";
+                yield return new WaitForSeconds(sec);
+                twoText.text = "So sad";
+                break;
+            case 1:
+                twoText.text = "Hellow";
+                yield return new WaitForSeconds(sec);
+                oneText.text = "Hi";
+                yield return new WaitForSeconds(sec);
+                twoText.text = "See you later aligater";
+                break;
+            case 2:
+                twoText.text = "Bye";
+                yield return new WaitForSeconds(sec);
+                oneText.text = "I hope I will never see you again";
+                yield return new WaitForSeconds(sec);
+                twoText.text = "Uh lala";
+                break;
+
+        }
+
         courrutine = true;
         anim.SetFloat("waking", 0);
         yield return new WaitForSeconds(sec);
