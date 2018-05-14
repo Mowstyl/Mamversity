@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<ArrayOfQuestion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Question>
+    <questionID>Q001</questionID>
+    <text>Hi son! How are you?</text>
+    <tags>
+      <string>Greetings</string>
+      <string>MamMadness</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamMadness</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Hi mom! I'm fine thanks</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Hello mother</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q002</questionID>
+    <text>Goodbye son</text>
+    <tags>
+      <string>Goodbyes</string>
+      <string>MamMadness</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamMadness</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Bye mom</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Bye mother</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+</ArrayOfQuestion>
