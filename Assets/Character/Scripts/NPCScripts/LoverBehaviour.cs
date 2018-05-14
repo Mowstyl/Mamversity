@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AssemblyCSharp;
+using UnityEngine.UI;
+using System.Linq;
 
 public class LoverBehaviour : MonoBehaviour
 {
@@ -16,25 +19,33 @@ public class LoverBehaviour : MonoBehaviour
     public float deathTime = 1f;
 
     //Variables to the movement
-    private bool flag1, flag2, isTalking, courrutine;
+    private bool flag1, flag2, isTalking;
     public int turnspeed;
     public GameObject drunk;
     //public ConversationScript conversation;
-
 
     public GameObject two;
 
     private TextMesh oneText;
     private TextMesh twoText;
 
-    //counter to wait
-    private int wait = 0;
+    //*******************************
+    //for the boubvle text
+    //*******************************
+    public Vector3 rotation;
+    Ray ray;
+    RaycastHit hit;
+    public GameObject vCurrentBubble = null; //just to make sure we cannot open multiple bubble at the same time.
+    public bool IsTalking = false;
+    public List<PixelBubble> vBubble = new List<PixelBubble>();
+    private PixelBubble vActiveBubble = null;
+    public GameObject BubbleRectangle;
+    public GameObject BubbleRound;
 
     // Use this for initialization
     void Start()
     {
         oneText = GetComponent<TextMesh>();
-        //twoText = two.GetComponent<TextMesh>();
         anim = GetComponent<Animator>();
         waking = 0.0f;
         turning = 0.0f;
@@ -42,20 +53,42 @@ public class LoverBehaviour : MonoBehaviour
         flag1 = true;
         flag2 = true;
         isTalking = false;
-        courrutine = false;
 
         phrases = new string[] { "Hi", "I love you baby", "Call me pls" };
         InvokeRepeating("Talk", deathTime, deathTime);
-        InvokeRepeating("SumPerSecond", 1.0f, 1.0f);
-        
 
-        offsetToDrunk = transform.position - drunk.transform.position;
-
+        PixelBubble asd = new PixelBubble();
+        asd.vMessage = "Funcionará asi?";
+        vBubble.Add(asd);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //check if we have the mouse over the character
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //make sure we left click and is on a NPC
+        if (Physics.Raycast(ray, out hit) && Input.GetMouseButtonDown(0))
+        {
+            //only return NPC
+            if (hit.transform == this.transform)
+            {
+                //check the bubble on the character and make it appear!
+                if (vBubble.Count > 0)
+                {
+                    ShowBubble(hit.transform.GetComponent<DialogBubble>());
+                }
+            }
+        }
+
+        //can't have a current character 
+        if (!IsTalking)
+        {
+            vActiveBubble = null;
+        }
+
+        //*********************************************
         if (!isTalking)
         {
             Movement();
@@ -63,6 +96,7 @@ public class LoverBehaviour : MonoBehaviour
         else
         {
             anim.SetFloat("waking", 0.0f);
+            transform.Rotate(new Vector3(0.0f, 0.0f));
         }
     }
 
@@ -78,11 +112,8 @@ public class LoverBehaviour : MonoBehaviour
 
             if (flag1)
             {
-
                 waking = Input.GetAxis("Vertical");
                 anim.SetFloat("waking", 1.0f);
-
-
             }
             else
             {
@@ -124,11 +155,8 @@ public class LoverBehaviour : MonoBehaviour
             float distance = Mathf.Infinity;
             var position = transform.position;
             GameObject[] npcs;
-            npcs = GameObject.FindGameObjectsWithTag("Drunk");
-            if (npcs.Length == 0)
-            {
-                // GetComponent<ScriptableObject>(). = "aqui no hay nadie";
-            }
+            npcs = GameObject.FindGameObjectsWithTag("Drunk");         
+
             // Find the closest one
             foreach (GameObject chara in npcs)
             {
@@ -144,116 +172,25 @@ public class LoverBehaviour : MonoBehaviour
             twoText = two.GetComponent<TextMesh>();
             DrukBehaviour scr = two.GetComponent<DrukBehaviour>();
             scr.isTalking = true;
+            //scr.transform.position = 4;
+
+
             if (distance < 5)
             {
-               // StopMov(4.0f);
                 if (twoText != null)
                 {
-                    twoText.GetComponent<Animator>().SetFloat("waking", 0);
-                    
-                    anim.SetFloat("waking", 0);
-                    flag1 = false;
-                    flag2 = false;
-                    Talk1(twoText);
-                    //int rnd = UnityEngine.Random.Range(0, 3);
-                    //switch (rnd)
-                    //{
-                    //    case 0:
-                    //        twoText.text = "You are beautiful";
-                    //        Stop(4);
-                    //        oneText.text = "You're not, sry :)";
-                    //        Stop(4);
-                    //        twoText.text = "So sad";
-                    //        break;
-                    //    case 1:
-                    //        twoText.text = "Hellow";
-                    //        Stop(4);
-                    //        oneText.text = "Hi";
-                    //        Stop(4);
-                    //        twoText.text = "See you later aligater";
-                    //        break;
-                    //    case 2:
-                    //        twoText.text = "Bye";
-                    //        Stop(4);
-                    //        oneText.text = "I hope I will never see you again";
-                    //        Stop(4);
-                    //        twoText.text = "Uh lala";
-                    //        break;
-                            
-                    //}
-                    Stop(0);
-                    Stop(0);
-                    //twoText.text = "";
-                    //oneText.text = "";
+                    StartCoroutine(StopMov(4, twoText, scr));
                 }
             }
             else { GetComponent<TextMesh>().text = "You are to far"; }
-            isTalking = false;
-            scr.isTalking = false;
         }
     }
 
-    void Stop(int sec) {
-        
-        while (true)
-        {
-            int rnd = UnityEngine.Random.Range(0, 100);
-            if (rnd > 98)
-            {
-                break;
-            }
-        }
-    }
-
-    void SumPerSecond()
+    IEnumerator StopMov(float sec, TextMesh twoText, DrukBehaviour scr)
     {
-        wait++;
-    }
+        isTalking = true;
+        scr.isTalking = true;
 
-    void Talk1(TextMesh twoText)
-    {
-        StartCoroutine(StopMov(4,twoText));
-        //int rnd = UnityEngine.Random.Range(0, 3);
-        //switch (rnd)
-        //{
-        //    case 0:
-        //        twoText.text = "You are beautiful";
-        //        StartCoroutine(StopMov(4));
-        //        oneText.text = "You're not, sry :)";
-        //        StartCoroutine(StopMov(4));
-        //        twoText.text = "So sad";
-        //        break;
-        //    case 1:
-        //        twoText.text = "Hellow";
-        //        StartCoroutine(StopMov(4));
-        //        oneText.text = "Hi";
-        //        StartCoroutine(StopMov(4));
-        //        twoText.text = "See you later aligater";
-        //        break;
-        //    case 2:
-        //        twoText.text = "Bye";
-        //        StartCoroutine(StopMov(4));
-        //        oneText.text = "I hope I will never see you again";
-        //        StartCoroutine(StopMov(4));
-        //        twoText.text = "Uh lala";
-        //        break;
-
-        //}
-    }
-
-    void Talk2()
-    {
-
-    }
-
-    void Talk3()
-    {
-
-    }
-
-
-    IEnumerator StopMov(float sec, TextMesh twoText)
-    {
         int rnd = UnityEngine.Random.Range(0, 3);
         switch (rnd)
         {
@@ -281,10 +218,138 @@ public class LoverBehaviour : MonoBehaviour
 
         }
 
-        courrutine = true;
-        anim.SetFloat("waking", 0);
-        yield return new WaitForSeconds(sec);
-        courrutine = false;
+        isTalking = false;
+        scr.isTalking = false;
+    }
+    //show the right bubble on the current character
+    void ShowBubble(DialogBubble vcharacter)
+    {
+        bool gotonextbubble = false;
+
+        //if vcurrentbubble is still there, just close it
+        if (vActiveBubble != null)
+        {
+            if (vActiveBubble.vClickToCloseBubble)
+            {
+                //get the function to close bubble
+                Appear vAppear = vcharacter.vCurrentBubble.GetComponent<Appear>();
+                vAppear.valpha = 0f;
+                vAppear.vTimer = 0f; //instantly
+                vAppear.vchoice = false; //close bubble
+
+                //check if last bubble
+                if (vActiveBubble == vcharacter.vBubble.Last())
+                    vcharacter.IsTalking = false;
+            }
+        }
+
+        foreach (PixelBubble vBubble in vcharacter.vBubble)
+        {
+            //make sure the bubble isn't already opened
+            if (vcharacter.vCurrentBubble == null)
+            {
+                //make the character in talking status
+                vcharacter.IsTalking = true;
+
+                //cut the message into 24 characters
+                string vTrueMessage = "";
+                string cLine = "";
+                int vLimit = 24;
+                if (vBubble.vMessageForm == BubbleType.Round)
+                    vLimit = 16;
+
+                //cut each word in a text in 24 characters.
+                foreach (string vWord in vBubble.vMessage.Split(' '))
+                {
+                    if (cLine.Length + vWord.Length > vLimit)
+                    {
+                        vTrueMessage += cLine + System.Environment.NewLine;
+
+                        //add a line break after
+                        cLine = ""; //then reset the current line
+                    }
+
+                    //add the current word with a space
+                    cLine += vWord + " ";
+                }
+
+                //add the last word
+                vTrueMessage += cLine;
+                GameObject vBubbleObject = null;
+
+
+                //create a rectangle or round bubble
+                if (vBubble.vMessageForm == BubbleType.Rectangle)
+                {
+                    //create bubble
+                    vBubbleObject = Instantiate(BubbleRectangle);
+                    vBubbleObject.transform.Rotate(rotation); //Rotación de burbuja
+                    vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(1.35f, 1.9f, 0f); //move a little bit the teleport particle effect
+                }
+                else
+                {
+                    //create bubble
+                    vBubbleObject = Instantiate(BubbleRound);
+                    vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(0.15f, 1.75f, 0f); //move a little bit the teleport particle effect
+                }
+
+                //show the mouse and wait for the user to left click OR NOT (if not, after 10 sec, it disappear)
+                vBubbleObject.GetComponent<Appear>().needtoclick = vBubble.vClickToCloseBubble;
+
+                Color vNewBodyColor = new Color(vBubble.vBodyColor.r, vBubble.vBodyColor.g, vBubble.vBodyColor.b, 0f);
+                Color vNewBorderColor = new Color(vBubble.vBorderColor.r, vBubble.vBorderColor.g, vBubble.vBorderColor.b, 0f);
+                Color vNewFontColor = new Color(vBubble.vFontColor.r, vBubble.vFontColor.g, vBubble.vFontColor.b, 255f);
+
+                //get all image below the main Object
+                foreach (Transform child in vBubbleObject.transform)
+                {
+                    SpriteRenderer vRenderer = child.GetComponent<SpriteRenderer>();
+                    TextMesh vTextMesh = child.GetComponent<TextMesh>();
+
+                    if (vRenderer != null && child.name.Contains("Body"))
+                    {
+                        //change the body color
+                        vRenderer.color = vNewBodyColor;
+
+                        if (vRenderer.sortingOrder < 10)
+                            vRenderer.sortingOrder = 1500;
+                    }
+                    else if (vRenderer != null && child.name.Contains("Border"))
+                    {
+                        //change the border color
+                        vRenderer.color = vNewBorderColor;
+                        if (vRenderer.sortingOrder < 10)
+                            vRenderer.sortingOrder = 1501;
+                    }
+                    else if (vTextMesh != null && child.name.Contains("Message"))
+                    {
+                        //change the message and show it in front of everything
+                        vTextMesh.color = vNewFontColor;
+                        vTextMesh.text = vTrueMessage;
+                        child.GetComponent<MeshRenderer>().sortingOrder = 1550;
+
+                        Transform vMouseIcon = child.FindChild("MouseIcon");
+                        if (vMouseIcon != null && !vBubble.vClickToCloseBubble)
+                            vMouseIcon.gameObject.SetActive(false);
+                    }
+
+                    //disable the mouse icon because it will close by itself
+                    if (child.name == "MouseIcon" && !vBubble.vClickToCloseBubble)
+                        child.gameObject.SetActive(false);
+                    else
+                        vActiveBubble = vBubble; //keep the active bubble and wait for the Left Click
+                }
+
+                vcharacter.vCurrentBubble = vBubbleObject; //attach it to the player
+                vBubbleObject.transform.parent = vcharacter.transform; //make him his parent
+            }
+            else if (vActiveBubble == vBubble && vActiveBubble.vClickToCloseBubble)
+            {
+                gotonextbubble = true;
+                vcharacter.vCurrentBubble = null;
+            }
+        }
     }
 
 }
+
