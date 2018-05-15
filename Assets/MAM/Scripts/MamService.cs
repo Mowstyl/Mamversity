@@ -18,6 +18,7 @@ namespace Assets.MAM.Scripts
         private int mamHappyness = 100;
         private List<Ask> toAsk;
         public enum Topics { Greetings, Health, Sociability, Study, Goodbyes};
+        public int numQuestions = 0;
 
         private List<Question> questionList;
 
@@ -88,6 +89,7 @@ namespace Assets.MAM.Scripts
                 var query = QuestionContainsTopic(tagList, item.topic);
                 conversation = conversation.Concat(query.OrderBy(x => rand.Next()).Take(item.times)).ToList();
             }
+            numQuestions = conversation.Count();
         }
 
         private List<string> ValueToTag(int sociability, int inner_peace, int madness, int mamHappyness, bool mamMadness)

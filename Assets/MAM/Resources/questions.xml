@@ -19,11 +19,11 @@
     <answers>
       <Answer>
         <text>Hi mom! I'm fine thanks</text>
-        <reward>0</reward>
+        <reward>10</reward>
       </Answer>
       <Answer>
         <text>Hello mother</text>
-        <reward>0</reward>
+        <reward>5</reward>
       </Answer>
     </answers>
   </Question>
@@ -46,11 +46,11 @@
     <answers>
       <Answer>
         <text>Bye mom</text>
-        <reward>0</reward>
+        <reward>10</reward>
       </Answer>
       <Answer>
         <text>Bye mother</text>
-        <reward>0</reward>
+        <reward>2</reward>
       </Answer>
     </answers>
   </Question>

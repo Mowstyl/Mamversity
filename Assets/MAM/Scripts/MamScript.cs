@@ -10,18 +10,26 @@ using UnityEngine.UI;
 public class MamScript : MonoBehaviour
 {
     public Transform canvas;
-    Text hText, qText;
-    Text txtOption1, txtOption2, txtOption3, txtOption4;
+    int maxReward, reward;
+    Text txtOption1, txtOption2, txtOption3, txtOption4, qText, rewardText;
     Button btnOption1, btnOption2, btnOption3, btnOption4, btnEnd;
     MamService mamService;
-    Answer selectedAnswer;
+    Question currentQuestion;
 
-    
+
     private void Start()
     {
-        mamService = new MamService();
+        MamLoad();
         Create();
         UpdateUI();
+    }
+
+    private void MamLoad()
+    {
+        mamService = new MamService();
+        currentQuestion = new Question();
+        maxReward = mamService.numQuestions * 10;
+        reward = 0;
     }
 
     // Update is called once per frame
@@ -32,38 +40,59 @@ public class MamScript : MonoBehaviour
             if (canvas.gameObject.activeInHierarchy == false)
             {
                 canvas.gameObject.SetActive(true);
-                mamService = new MamService();
-                Create();
+                MamLoad();
+                CleanUI();
                 UpdateUI();
             }
             else
             {
                 canvas.gameObject.SetActive(false);
-                hText.text = string.Empty;
             }
         }
 
     }
 
+    private void CleanUI()
+    {
+        txtOption1.text = txtOption2.text = txtOption3.text = txtOption4.text = "";
+        rewardText.text = "";
+    }
+
     #region Button Listeners
     private void Option1OnClick()
     {
-        UpdateUI();
+        if (currentQuestion != null && currentQuestion.answers.Count() > 0)
+        {
+            reward += currentQuestion.answers[0].reward;
+            UpdateUI();
+        }
     }
 
     private void Option2OnClick()
     {
-        UpdateUI();
+        if (currentQuestion != null && currentQuestion.answers.Count() > 1)
+        {
+            reward += currentQuestion.answers[1].reward;
+            UpdateUI();
+        }
     }
 
     private void Option3OnClick()
     {
-        UpdateUI();
+        if (currentQuestion != null && currentQuestion.answers.Count() > 2)
+        {
+            reward += currentQuestion.answers[2].reward;
+            UpdateUI();
+        }
     }
 
     private void Option4OnClick()
     {
-        UpdateUI();
+        if (currentQuestion != null && currentQuestion.answers.Count() > 3)
+        {
+            reward += currentQuestion.answers[3].reward;
+            UpdateUI();
+        }
     }
 
     private void EndCallOnClick()
@@ -71,7 +100,6 @@ public class MamScript : MonoBehaviour
         if (canvas.gameObject.activeInHierarchy == true)
         {
             canvas.gameObject.SetActive(false);
-            hText.text = String.Empty;
         }
     }
 
@@ -79,41 +107,42 @@ public class MamScript : MonoBehaviour
 
     private void UpdateUI()
     {
-        Question q = mamService.GetQuestion();
+        currentQuestion = mamService.GetQuestion();
 
-        if (q == null)
+        if (currentQuestion == null)
         {
             qText.text = "[End of conversation]";
-            canvas.gameObject.SetActive(false);
+            txtOption1.text = txtOption2.text = txtOption3.text = txtOption4.text = "";
+            GetScore();
 
         }
         else
         {
-            qText.text = q.text;
-            if (q.answers.Count >= 4)
+            qText.text = currentQuestion.text;
+            if (currentQuestion.answers.Count >= 4)
             {
-                txtOption1.text = q.answers[0].text;
-                txtOption2.text = q.answers[1].text;
-                txtOption3.text = q.answers[2].text;
-                txtOption4.text = q.answers[3].text;
+                txtOption1.text = currentQuestion.answers[0].text;
+                txtOption2.text = currentQuestion.answers[1].text;
+                txtOption3.text = currentQuestion.answers[2].text;
+                txtOption4.text = currentQuestion.answers[3].text;
             }
-            else if (q.answers.Count == 3)
+            else if (currentQuestion.answers.Count == 3)
             {
-                txtOption1.text = q.answers[0].text;
-                txtOption2.text = q.answers[1].text;
-                txtOption3.text = q.answers[2].text;
+                txtOption1.text = currentQuestion.answers[0].text;
+                txtOption2.text = currentQuestion.answers[1].text;
+                txtOption3.text = currentQuestion.answers[2].text;
                 txtOption4.text = "";
             }
-            else if (q.answers.Count == 2)
+            else if (currentQuestion.answers.Count == 2)
             {
-                txtOption1.text = q.answers[0].text;
-                txtOption2.text = q.answers[1].text;
+                txtOption1.text = currentQuestion.answers[0].text;
+                txtOption2.text = currentQuestion.answers[1].text;
                 txtOption3.text = "";
                 txtOption4.text = "";
             }
-            else if (q.answers.Count == 1)
+            else if (currentQuestion.answers.Count == 1)
             {
-                txtOption1.text = q.answers[0].text;
+                txtOption1.text = currentQuestion.answers[0].text;
                 txtOption2.text = "";
                 txtOption3.text = "";
                 txtOption4.text = "";
@@ -121,13 +150,22 @@ public class MamScript : MonoBehaviour
             else
             {
                 qText.text = "[End of conversation]";
+                txtOption1.text = "";
+                txtOption2.text = "";
+                txtOption3.text = "";
+                txtOption4.text = "";
             }
         }
     }
 
+    private void GetScore()
+    {
+        reward = ((reward * 100) / maxReward);
+        rewardText.text = reward + "%";
+    }
+
     private void Create()
     {
-        hText = GameObject.Find("History").GetComponent<Text>();
         qText = GameObject.Find("MamQuestion").GetComponent<Text>();
         txtOption1 = GameObject.Find("Option1").GetComponent<Text>();
         txtOption2 = GameObject.Find("Option2").GetComponent<Text>();
@@ -138,11 +176,11 @@ public class MamScript : MonoBehaviour
         btnOption3 = GameObject.Find("btnOption3").GetComponent<Button>();
         btnOption4 = GameObject.Find("btnOption4").GetComponent<Button>();
         btnEnd = GameObject.Find("EndCall").GetComponent<Button>();
+        rewardText = GameObject.Find("rewardText").GetComponent<Text>();
         btnOption1.onClick.AddListener(Option1OnClick);
         btnOption2.onClick.AddListener(Option2OnClick);
         btnOption3.onClick.AddListener(Option3OnClick);
         btnOption4.onClick.AddListener(Option4OnClick);
         btnEnd.onClick.AddListener(EndCallOnClick);
-        txtOption1.text = txtOption2.text = txtOption3.text = txtOption4.text = "";
     }
 }
