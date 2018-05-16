@@ -40,9 +40,9 @@ namespace Assets.MAM.Scripts
                 }
             }
             toAsk.Add(new Ask(Topics.Goodbyes.ToString(), 1));
-            if (rand.Next(0, 100) == 50)
+            if (rand.Next(0, 5) == 2)
                 mamMadness = true;
-            GenerateConversation(20, 20, 20);
+            GenerateConversation(rand.Next(0, 100), rand.Next(0, 100), rand.Next(0, 100));
         }
 
         private List<Question> LoadQuestions()
@@ -135,7 +135,7 @@ namespace Assets.MAM.Scripts
                 }
                 else if (mamHappyness >= 33 && mamHappyness < 66)
                 {
-                    tags.Add("MamsSuspicious");
+                    tags.Add("MamSuspicious");
                 }
                 else
                 {
