@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace Assets.MAM.Scripts
@@ -24,6 +22,7 @@ namespace Assets.MAM.Scripts
 
         public MamService()
         {
+            // Initialization
             questionList = new List<Question>();
             conversation = new List<Question>();
             toAsk = new List<Ask>();
@@ -32,14 +31,14 @@ namespace Assets.MAM.Scripts
             questionList = LoadQuestions();
             var topics = Enum.GetValues(typeof(Topics));
             toAsk.Add(new Ask(Topics.Greetings.ToString(), 1));
+            // We get some random questions, with the data of the user and mother
             foreach (var item in topics)
             {
                 if (!item.Equals(Topics.Greetings) && !item.Equals(Topics.Goodbyes))
-                {
                     toAsk.Add(new Ask(item.ToString(), rand.Next(1,4)));
-                }
             }
             toAsk.Add(new Ask(Topics.Goodbyes.ToString(), 1));
+            // Mother goes crazy 1 out of 5 times
             if (rand.Next(0, 5) == 2)
                 mamMadness = true;
             GenerateConversation(rand.Next(0, 100), rand.Next(0, 100), rand.Next(0, 100));
@@ -47,9 +46,8 @@ namespace Assets.MAM.Scripts
 
         private List<Question> LoadQuestions()
         {
+            // Load questions from XML file
             var questions = new List<Question>();
-            //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"questions.xml");
-            //string[] files = File.ReadAllLines(path);
             bool fileExist = File.Exists("Assets/MAM/Resources/questions.xml");
             Debug.WriteLine(fileExist ? "File exists." : "File does not exist.");
             if (fileExist)
@@ -59,6 +57,7 @@ namespace Assets.MAM.Scripts
             return questions;
         }
 
+        // DeserializeObj is used to tranform xml data to the corresponding object
         private static T DeserializeObj<T>(string path)
         {
             var reader = new XmlSerializer(typeof(T));
@@ -68,6 +67,7 @@ namespace Assets.MAM.Scripts
             return obj;
         }
 
+        // Used to obtain the question from the mother
         public Question GetQuestion()
         {
             if (conversation.Count == 0)
@@ -81,17 +81,20 @@ namespace Assets.MAM.Scripts
             }
         }
 
+        // Used to generate the questions that the mother will ask
         private void GenerateConversation(int sociability, int inner_peace, int madness)
         {
             foreach (var item in toAsk)
             {
                 var tagList =  ValueToTag(sociability, inner_peace, madness, mamHappyness, mamMadness);
                 var query = QuestionContainsTopic(tagList, item.topic);
+                // LINQ. We get the questions which contains the tag generated with the user and the mothers data
                 conversation = conversation.Concat(query.OrderBy(x => rand.Next()).Take(item.times)).ToList();
             }
             numQuestions = conversation.Count();
         }
 
+        // ValueToTag is used to transform the numeric values to the corresponding tags
         private List<string> ValueToTag(int sociability, int inner_peace, int madness, int mamHappyness, bool mamMadness)
         {
             if (mamMadness)
@@ -143,12 +146,10 @@ namespace Assets.MAM.Scripts
                 }                
 
                 return tags;
-
-            }
-
-            
+            }                        
         }
 
+        // Used to check if a question contains the selected topic
         private List<Question> QuestionContainsTopic(List<String> tags, string topic)
         {
             var qList = new List<Question>();
@@ -157,9 +158,7 @@ namespace Assets.MAM.Scripts
             {
                 bool exist = tags.All(i => item.tags.Contains(i));
                 if (exist)
-                {
                     qList.Add(item);
-                }
             }
             return qList;
         }
