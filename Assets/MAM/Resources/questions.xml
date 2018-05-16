@@ -1,0 +1,560 @@
+﻿<?xml version="1.0"?>
+<ArrayOfQuestion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Question>
+    <questionID>Q001</questionID>
+    <text>Hi son! How are you?</text>
+    <tags>
+      <string>Greetings</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Hi mom! I'm fine thanks</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Hello mother</text>
+        <reward>5</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q002</questionID>
+    <text>Goodbye son</text>
+    <tags>
+      <string>Goodbyes</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Bye mom</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Bye mother</text>
+        <reward>2</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q3</questionID>
+    <text>Did you 'Praise the Sun' with Hernan today?</text>
+    <tags>
+      <string>Sociability</string>
+      <string>MamMadness</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamMadness</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Yes</text>
+        <reward>7</reward>
+      </Answer>
+      <Answer>
+        <text>No</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>What the bloody hell is that?</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Always!</text>
+        <reward>10</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q4</questionID>
+    <text>Do you have enough chorizo tappers for this week?</text>
+    <tags>
+      <string>Health</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Yes</text>
+        <reward>6</reward>
+      </Answer>
+      <Answer>
+        <text>Never enough, give me more!</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Again?</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>No</text>
+        <reward>7</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q6</questionID>
+    <text>Have you finished your API tasks?</text>
+    <tags>
+      <string>Study</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>No</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Yes</text>
+        <reward>7</reward>
+      </Answer>
+      <Answer>
+        <text>Yes. And I have done more than requested!</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>No. Quemasdá is going to suspend me anyway</text>
+        <reward>4</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q2</questionID>
+    <text>How are you doing with AI? Do you have your slides finished?</text>
+    <tags>
+      <string>Study</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Yes! Go Pa'lante</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>No</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>I don't know what to do!!!!</text>
+        <reward>4</reward>
+      </Answer>
+      <Answer>
+        <text>I'm still working on it</text>
+        <reward>5</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q6</questionID>
+    <text>What have you eaten today?</text>
+    <tags>
+      <string>Health</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Healthy food</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>Nothing</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Meat</text>
+        <reward>2</reward>
+      </Answer>
+      <Answer>
+        <text>Not of your business</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q7</questionID>
+    <text>What about your girlfriend?</text>
+    <tags>
+      <string>Sociability</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Great!</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>Which one?</text>
+        <reward>2</reward>
+      </Answer>
+      <Answer>
+        <text>I've told you hundreds of times. I DON'T HAVE A GIRLFRIEND</text>
+        <reward>1</reward>
+      </Answer>
+      <Answer>
+        <text>I'm sick of her. Is very annoying!</text>
+        <reward>10</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q8</questionID>
+    <text>Have you studied a lot?</text>
+    <tags>
+      <string>Study</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamMadness</string>
+      <string>MamSuspicious</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Yes</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>Yes! I live in the library</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Yes ... in a bar with my friends</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>I'll start tomorrow</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q9</questionID>
+    <text>YOU DIDN'T CALL ME!!</text>
+    <tags>
+      <string>Greetings</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Hi mom, I've been busy studying API</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>MOM!!!! You called me yesterday!</text>
+        <reward>7</reward>
+      </Answer>
+      <Answer>
+        <text>Hi mom, I'm sorry. I was having dinner with my girlfriend</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>GO TO HELL!</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q10</questionID>
+    <text>YOU HAVEN'T PASS API!!!</text>
+    <tags>
+      <string>Study</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>I have studied very hard, but Quemasdá has given me a 0</text>
+        <reward>4</reward>
+      </Answer>
+      <Answer>
+        <text>I'm really sorry mom</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>Next time, I promise</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Quemasdá hates me</text>
+        <reward>4</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q11</questionID>
+    <text>When I see you, I'm going to hit you with the alpargata! Goodbye!</text>
+    <tags>
+      <string>Goodbyes</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Bye mom</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>YOU WISH!</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q12</questionID>
+    <text>YOU DIDN'T EAT CHORIZO! This weekend, you will get fed up</text>
+    <tags>
+      <string>Health</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Yes please ...</text>
+        <reward>3</reward>
+      </Answer>
+      <Answer>
+        <text>YOU ALLWAYS SEND ME TUPPERS OF CHORIZO!</text>
+        <reward>2</reward>
+      </Answer>
+      <Answer>
+        <text>OK. Chorizo is my favorite food</text>
+        <reward>10</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q0</questionID>
+    <text>When I see you, I'm going to hit you with the alpargata! Goodbye!</text>
+    <tags>
+      <string>Goodbyes</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Bye mom</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>YOU WISH!</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q13</questionID>
+    <text>YOU DIDN'T EAT CHORIZO! This weekend, you will get fed up</text>
+    <tags>
+      <string>Health</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Yes please ...</text>
+        <reward>3</reward>
+      </Answer>
+      <Answer>
+        <text>YOU ALLWAYS SEND ME TUPPERS OF CHORIZO!</text>
+        <reward>2</reward>
+      </Answer>
+      <Answer>
+        <text>OK. Chorizo is my favorite food</text>
+        <reward>10</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q14</questionID>
+    <text>How many drugs have you done in the past three days?</text>
+    <tags>
+      <string>Health</string>
+      <string>LowSociability</string>
+      <string>SociabilityOK</string>
+      <string>LowInnerPeace</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamMadness</string>
+      <string>MamSuspicious</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Nothing!</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Smoke weed everyday!</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Beer is my drug</text>
+        <reward>4</reward>
+      </Answer>
+      <Answer>
+        <text>Everything. I'm like a guinea pig!</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q16</questionID>
+    <text>Did you upload new photos to Instagram?</text>
+    <tags>
+      <string>Sociability</string>
+      <string>SociabilityOK</string>
+      <string>InnerPeaceOK</string>
+      <string>MadUser</string>
+      <string>UserOK</string>
+      <string>MamSuspicious</string>
+      <string>MamHappy</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Nope, I was bussy studying</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Not yet</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>Yes, I upload photos everyday. Like a diva!</text>
+        <reward>3</reward>
+      </Answer>
+      <Answer>
+        <text>You are very gossip. I'm going to delete you</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q17</questionID>
+    <text>Why does the Easter bunny carry eggs?</text>
+    <tags>
+      <string>Sociability</string>
+      <string>MamMadness</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Rabbits don't lay eggs</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>What did you smoke? I want it!</text>
+        <reward>6</reward>
+      </Answer>
+      <Answer>
+        <text>Ask him!</text>
+        <reward>3</reward>
+      </Answer>
+      <Answer>
+        <text>No idea</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q18</questionID>
+    <text>What is Satan's last name?</text>
+    <tags>
+      <string>MamMadness</string>
+      <string>Study</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>I will ask to my Algorithm Desing teacher! He loves religion</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>Mom... why did you ask that? Are you dating with him?</text>
+        <reward>8</reward>
+      </Answer>
+      <Answer>
+        <text>Quemasdá ... I know him!</text>
+        <reward>10</reward>
+      </Answer>
+      <Answer>
+        <text>No idea</text>
+        <reward>0</reward>
+      </Answer>
+    </answers>
+  </Question>
+  <Question>
+    <questionID>Q19</questionID>
+    <text>Goodbye son. And remember, you better work harder!</text>
+    <tags>
+      <string>MamMadness</string>
+      <string>MamSuspicious</string>
+      <string>Goodbyes</string>
+    </tags>
+    <answers>
+      <Answer>
+        <text>Bye mom ¬¬</text>
+        <reward>0</reward>
+      </Answer>
+      <Answer>
+        <text>Bye mother, I'll do my best</text>
+        <reward>10</reward>
+      </Answer>
+    </answers>
+  </Question>
+</ArrayOfQuestion>
