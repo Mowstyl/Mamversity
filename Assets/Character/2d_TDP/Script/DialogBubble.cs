@@ -7,7 +7,9 @@ using System.Linq;
 
 public class DialogBubble : MonoBehaviour {
 
-	Ray ray;
+    public Vector3 rotation;
+    public GameObject maincamera;
+    Ray ray;
 	RaycastHit hit;
 	public GameObject vCurrentBubble = null; //just to make sure we cannot open multiple bubble at the same time.
 	public bool IsTalking = false;
@@ -16,8 +18,13 @@ public class DialogBubble : MonoBehaviour {
     public GameObject BubbleRectangle;
     public GameObject BubbleRound;
 
+    private void Start()
+    {
+        maincamera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+    }
+
     //show the right bubble on the current character
-    void ShowBubble(DialogBubble vcharacter)
+    public void ShowBubble(DialogBubble vcharacter)
 	{
 		bool gotonextbubble = false;
 
@@ -81,7 +88,8 @@ public class DialogBubble : MonoBehaviour {
 				{
 					//create bubble
 					vBubbleObject = Instantiate(BubbleRound);
-					vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(0.15f, 1.75f, 0f); //move a little bit the teleport particle effect
+                    //vBubbleObject.transform.Rotate(rotation); //Rotación de burbuja
+                    vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(0.15f, 1.75f, 0f); //move a little bit the teleport particle effect
 				}
 
 				//show the mouse and wait for the user to left click OR NOT (if not, after 10 sec, it disappear)
@@ -162,5 +170,15 @@ public class DialogBubble : MonoBehaviour {
 		{			
 			vActiveBubble = null;
 		}
-	}
+
+        //If there are a bubble active you can see in the direction of the camera
+        if (vCurrentBubble != null)
+        {
+            var a = maincamera.transform.eulerAngles;
+            a = vCurrentBubble.transform.eulerAngles;
+            vCurrentBubble.transform.eulerAngles = maincamera.transform.eulerAngles;
+            a = vCurrentBubble.transform.eulerAngles;
+        }
+    
+    }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Pick Up
   - Main Character
   - Drunk
+  - Dialog
   layers:
   - Default
   - TransparentFX

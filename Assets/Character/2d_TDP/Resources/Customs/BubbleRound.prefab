@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 9532176}
   m_Layer: 0
   m_Name: BubbleRound
-  m_TagString: Untagged
+  m_TagString: Dialog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

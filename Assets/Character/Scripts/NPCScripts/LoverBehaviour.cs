@@ -42,9 +42,12 @@ public class LoverBehaviour : MonoBehaviour
     public GameObject BubbleRectangle;
     public GameObject BubbleRound;
 
+    public GameObject maincamera;
+
     // Use this for initialization
     void Start()
     {
+
         oneText = GetComponent<TextMesh>();
         anim = GetComponent<Animator>();
         waking = 0.0f;
@@ -60,34 +63,15 @@ public class LoverBehaviour : MonoBehaviour
         PixelBubble asd = new PixelBubble();
         asd.vMessage = "Funcionará asi?";
         vBubble.Add(asd);
+
+        maincamera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //check if we have the mouse over the character
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        //make sure we left click and is on a NPC
-        if (Physics.Raycast(ray, out hit) && Input.GetMouseButtonDown(0))
-        {
-            //only return NPC
-            if (hit.transform == this.transform)
-            {
-                //check the bubble on the character and make it appear!
-                if (vBubble.Count > 0)
-                {
-                    ShowBubble(hit.transform.GetComponent<DialogBubble>());
-                }
-            }
-        }
-
-        //can't have a current character 
-        if (!IsTalking)
-        {
-            vActiveBubble = null;
-        }
-
+  
         //*********************************************
         if (!isTalking)
         {
@@ -98,6 +82,22 @@ public class LoverBehaviour : MonoBehaviour
             anim.SetFloat("waking", 0.0f);
             transform.Rotate(new Vector3(0.0f, 0.0f));
         }
+
+        if (!IsTalking)
+        {
+            vActiveBubble = null;
+        }
+
+        //If there are a bubble active you can see in the direction of the camera
+        if (vCurrentBubble != null)
+        {
+            var a = maincamera.transform.eulerAngles;
+            a = vCurrentBubble.transform.eulerAngles;
+            vCurrentBubble.transform.eulerAngles = maincamera.transform.eulerAngles;
+            a = vCurrentBubble.transform.eulerAngles;
+        }
+
+
     }
 
     private void Movement()
@@ -150,7 +150,7 @@ public class LoverBehaviour : MonoBehaviour
     {
         if (!isTalking)
         {
-            isTalking = true;
+            //isTalking = true;
             GameObject closest = new GameObject();
             float distance = Mathf.Infinity;
             var position = transform.position;
@@ -171,31 +171,52 @@ public class LoverBehaviour : MonoBehaviour
             two = closest;
             twoText = two.GetComponent<TextMesh>();
             DrukBehaviour scr = two.GetComponent<DrukBehaviour>();
-            scr.isTalking = true;
+            
             //scr.transform.position = 4;
 
+            
 
             if (distance < 5)
             {
-                if (twoText != null)
+                if (!scr.isTalking)
                 {
                     StartCoroutine(StopMov(4, twoText, scr));
                 }
             }
-            else { GetComponent<TextMesh>().text = "You are to far"; }
+            else { GetComponent<TextMesh>().text = "You are to far";
+                //isTalking = false;
+                //scr.IsNotTalking();
+            }
         }
     }
 
     IEnumerator StopMov(float sec, TextMesh twoText, DrukBehaviour scr)
     {
         isTalking = true;
-        scr.isTalking = true;
+        scr.IsTalking();
+        ShowBubble(transform.GetComponent<DialogBubble>());
+        scr.GetComponent<DialogBubble>().ShowBubble(scr.transform.GetComponent<DialogBubble>());
+        //Code to look each other
+        var heading = scr.transform.position - this.transform.position;
+        var distance = heading.magnitude;
+        var direction = heading / distance;  // This is now the normalized direction.
+        var a = transform.eulerAngles;
+        float c2 = (Mathf.Pow(direction.z,2) + Mathf.Pow(direction.x, 2));
+        var angulo = (Mathf.Pow(direction.z, 2)- Mathf.Pow(direction.x, 2) -c2 ) / (-2 * direction.x * Mathf.Sqrt(c2));
+        float arcoseno = Mathf.Acos(angulo);
+        float rotacion = -transform.eulerAngles.y + arcoseno;
+        transform.Rotate(new Vector3 (0.0f, rotacion, 0.0f));
+        a = transform.eulerAngles;
 
+        rotacion = - scr.transform.eulerAngles.y + arcoseno + Mathf.PI;
+        scr.transform.Rotate(new Vector3(0.0f, rotacion, 0.0f));
+        
         int rnd = UnityEngine.Random.Range(0, 3);
         switch (rnd)
         {
             case 0:
                 twoText.text = "You are beautiful";
+
                 yield return new WaitForSeconds(sec);
                 oneText.text = "You're not, sry :)";
                 yield return new WaitForSeconds(sec);
@@ -219,9 +240,10 @@ public class LoverBehaviour : MonoBehaviour
         }
 
         isTalking = false;
-        scr.isTalking = false;
+        scr.IsNotTalking();
     }
-    //show the right bubble on the current character
+
+
     void ShowBubble(DialogBubble vcharacter)
     {
         bool gotonextbubble = false;
@@ -277,19 +299,18 @@ public class LoverBehaviour : MonoBehaviour
                 vTrueMessage += cLine;
                 GameObject vBubbleObject = null;
 
-
                 //create a rectangle or round bubble
                 if (vBubble.vMessageForm == BubbleType.Rectangle)
                 {
                     //create bubble
                     vBubbleObject = Instantiate(BubbleRectangle);
-                    vBubbleObject.transform.Rotate(rotation); //Rotación de burbuja
                     vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(1.35f, 1.9f, 0f); //move a little bit the teleport particle effect
                 }
                 else
                 {
                     //create bubble
                     vBubbleObject = Instantiate(BubbleRound);
+                    //vBubbleObject.transform.Rotate(rotation); //Rotación de burbuja
                     vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(0.15f, 1.75f, 0f); //move a little bit the teleport particle effect
                 }
 
@@ -350,6 +371,5 @@ public class LoverBehaviour : MonoBehaviour
             }
         }
     }
-
 }
 
