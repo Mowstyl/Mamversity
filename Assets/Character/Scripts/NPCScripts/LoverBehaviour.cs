@@ -7,22 +7,15 @@ using System.Linq;
 
 public class LoverBehaviour : MonoBehaviour
 {
-
-    private Animator anim;
-    private float waking;
-    private float turning;
-    private string[] phrases;
-
-    private Vector3 offsetToDrunk;
-
     //deathTime is the time interval that is going to call "Deth"
     public float deathTime = 1f;
 
     //Variables to the movement
     private bool flag1, flag2, isTalking;
     public int turnspeed;
-    public GameObject drunk;
-    //public ConversationScript conversation;
+    private Animator anim;
+    private float waking;
+    private float turning;
 
     public GameObject two;
 
@@ -47,7 +40,6 @@ public class LoverBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         oneText = GetComponent<TextMesh>();
         anim = GetComponent<Animator>();
         waking = 0.0f;
@@ -57,7 +49,6 @@ public class LoverBehaviour : MonoBehaviour
         flag2 = true;
         isTalking = false;
 
-        phrases = new string[] { "Hi", "I love you baby", "Call me pls" };
         InvokeRepeating("Talk", deathTime, deathTime);
 
         PixelBubble asd = new PixelBubble();
@@ -65,22 +56,21 @@ public class LoverBehaviour : MonoBehaviour
         vBubble.Add(asd);
 
         maincamera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
-
     }
 
     // Update is called once per frame
     void Update()
     {
   
-        //*********************************************
+        //If he is not talking he moves
         if (!isTalking)
         {
             Movement();
         }
         else
-        {
-            anim.SetFloat("waking", 0.0f);
-            transform.Rotate(new Vector3(0.0f, 0.0f));
+        {         
+            anim.SetFloat("waking", 0.0f);              //Stop walking  
+            transform.Rotate(new Vector3(0.0f, 0.0f));  //Stop turning
         }
 
         if (!IsTalking)
@@ -102,13 +92,14 @@ public class LoverBehaviour : MonoBehaviour
 
     private void Movement()
     {
+
+        //This is the random movement
         if (!isTalking)
         {
             Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
 
             int rnd = UnityEngine.Random.Range(0, 100);
             int rnd2 = UnityEngine.Random.Range(0, 100);
-
 
             if (flag1)
             {
@@ -172,10 +163,7 @@ public class LoverBehaviour : MonoBehaviour
             twoText = two.GetComponent<TextMesh>();
             DrukBehaviour scr = two.GetComponent<DrukBehaviour>();
             
-            //scr.transform.position = 4;
-
-            
-
+            //If  the closest Drunk is near than 5 units they star talking
             if (distance < 5)
             {
                 if (!scr.isTalking)
@@ -183,10 +171,10 @@ public class LoverBehaviour : MonoBehaviour
                     StartCoroutine(StopMov(4, twoText, scr));
                 }
             }
-            else { GetComponent<TextMesh>().text = "You are to far";
-                //isTalking = false;
-                //scr.IsNotTalking();
-            }
+            //else { GetComponent<TextMesh>().text = "You are to far";
+            //    //isTalking = false;
+            //    //scr.IsNotTalking();
+            //}
         }
     }
 
@@ -195,15 +183,18 @@ public class LoverBehaviour : MonoBehaviour
         isTalking = true;
         scr.IsTalking();
         ShowBubble(transform.GetComponent<DialogBubble>());
+        
         scr.GetComponent<DialogBubble>().ShowBubble(scr.transform.GetComponent<DialogBubble>());
+
         //Code to look each other
-        var heading = scr.transform.position - this.transform.position;
-        var distance = heading.magnitude;
-        var direction = heading / distance;  // This is now the normalized direction.
-        var a = transform.eulerAngles;
-        float c2 = (Mathf.Pow(direction.z,2) + Mathf.Pow(direction.x, 2));
-        var angulo = (Mathf.Pow(direction.z, 2)- Mathf.Pow(direction.x, 2) -c2 ) / (-2 * direction.x * Mathf.Sqrt(c2));
-        float arcoseno = Mathf.Acos(angulo);
+        var heading = scr.transform.position - this.transform.position; //direction
+        var distance = heading.magnitude;                               //distance
+        var direction = heading / distance;                             //This is now the normalized direction.
+        var a = transform.eulerAngles;    
+        //I use the coseno theorem to know the angle => c^2 = a^2 + b^2 -2ab * cos C
+        float c2 = (Mathf.Pow(direction.z,2) + Mathf.Pow(direction.x, 2));  
+        var coseno = (Mathf.Pow(direction.z, 2)- Mathf.Pow(direction.x, 2) -c2 ) / (-2 * direction.x * Mathf.Sqrt(c2));
+        float arcoseno = Mathf.Acos(coseno);
         float rotacion = -transform.eulerAngles.y + arcoseno;
         transform.Rotate(new Vector3 (0.0f, rotacion, 0.0f));
         a = transform.eulerAngles;
@@ -215,25 +206,38 @@ public class LoverBehaviour : MonoBehaviour
         switch (rnd)
         {
             case 0:
-                twoText.text = "You are beautiful";
-
-                yield return new WaitForSeconds(sec);
-                oneText.text = "You're not, sry :)";
-                yield return new WaitForSeconds(sec);
-                twoText.text = "So sad";
+                vActiveBubble.vMessage = "Prueba 1";
+                ShowBubble(transform.GetComponent<DialogBubble>());
+                //twoText.text = "You are beautiful";
+                //yield return new WaitForSeconds(sec);
+                //oneText.text = "You're not, sry :)";
+                //yield return new WaitForSeconds(sec);
+                //twoText.text = "So sad";
                 break;
             case 1:
+                vActiveBubble.vMessage = "Prueba 2";
+                ShowBubble(transform.GetComponent<DialogBubble>());
                 twoText.text = "Hellow";
                 yield return new WaitForSeconds(sec);
                 oneText.text = "Hi";
                 yield return new WaitForSeconds(sec);
+                if (vActiveBubble != null)
+                {
+                    vActiveBubble.vMessage = "Prueba 2.1";
+                }
                 twoText.text = "See you later aligater";
                 break;
             case 2:
+                vActiveBubble.vMessage = "Prueba 3";
+                ShowBubble(transform.GetComponent<DialogBubble>());
                 twoText.text = "Bye";
                 yield return new WaitForSeconds(sec);
                 oneText.text = "I hope I will never see you again";
                 yield return new WaitForSeconds(sec);
+                if (vActiveBubble != null)
+                {
+                    vActiveBubble.vMessage = "Prueba 2.1";
+                }
                 twoText.text = "Uh lala";
                 break;
 

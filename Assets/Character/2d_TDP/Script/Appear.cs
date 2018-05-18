@@ -70,7 +70,7 @@ public class Appear : MonoBehaviour {
 		else if ((valpha == 255f) &&(!needtoclick))
 		{
 			valpha = 254f;
-			StartCoroutine(WaitInSeconds(3f, "False"));
+			StartCoroutine(WaitInSeconds(10f, "False"));
 		}
 	}		
 }
