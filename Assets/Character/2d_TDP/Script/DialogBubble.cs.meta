@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 78e33b377035171458bfd16229c3cefb
+timeCreated: 1443804513
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - vCurrentBubble: {instanceID: 0}
+  - BubbleRectangle: {fileID: 166516, guid: 8d3450be32d173c488fd8fd3d975012e, type: 2}
+  - BubbleRound: {fileID: 171174, guid: 40218ae1bf5d6e740b6cd6127aec4c4c, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

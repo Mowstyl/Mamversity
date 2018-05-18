@@ -37,6 +37,11 @@ public class DrukBehaviour : MonoBehaviour {
         {
             Movement();
         }
+        else
+        {
+            anim.SetFloat("waking", 0.0f);
+            transform.Rotate(new Vector3(0.0f, 0.0f));
+        }
     }
 
     private void Movement()
@@ -89,4 +94,11 @@ public class DrukBehaviour : MonoBehaviour {
             Destroy(gameObject, 2f);
         }
     }
+
+    public void IsTalking()
+    {
+        isTalking = true; }
+    public void IsNotTalking()
+    {
+        isTalking = false; }
 }
