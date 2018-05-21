@@ -6,11 +6,15 @@ using UnityEngine;
 public class Generator : MonoBehaviour {
 
     public GameObject[] seed;
-    public float scale = 1;
+	public float scale = (float)1;
 	public List<Vector3> centers=new List<Vector3>();
 	public List<Vector3> edges=new List<Vector3>();
 	public Vector3 floorMax;
 	public Vector3 floorMin;
+	public int rot = 0;
+	public Material mat2;
+	public Material[] materials;
+	public Material m_Material;
 
 	public void Start () {
 		
@@ -24,23 +28,35 @@ public class Generator : MonoBehaviour {
 		floor.name = "floor";
 		floor.AddComponent<MeshRenderer> ();
 		floor.AddComponent<MeshFilter> ();
-
+		//floor.AddComponent<Renderer> ();
 		floor.GetComponent<MeshFilter> ().mesh = MakeFloor();
 		floor.AddComponent<MeshCollider> ();
-		floor.GetComponent<MeshRenderer> ().material = new Material (Shader.Find("Specular"));
+		//floor.GetComponent<MeshRenderer> ().material = new Material (Shader.Find("Specular"));
+		floor.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.green);
 		//floor.GetComponent<MeshRenderer> ().material.SetTextureScale ("Diffuse", new Vector2 (100, 0));
-		//floor.renderer.material.mainTexture = Resources.Load("Floor") as Texture2D;
+		//floor.renderer.material.mainTexture = Scripts.Load("grass") as Texture2D;
+		//floor.GetComponent<MeshRenderer> ().material =  new Material (Shader.Find("grassMaterial"));
+		//m_Material.color = Color.red;
+		//floor.GetComponent<MeshRenderer> ().material = m_Material;
+
 
 
 		for(int i = 0; i<centers.Count; ++i){
 			GameObject Building = Instantiate(seed[Random.Range(0, seed.Length)], transform.position, transform.rotation);
 			Building.transform.localScale = new Vector3(scale, scale, scale);
+			Building.transform.localEulerAngles = new Vector3 ((float)Random.Range(-25,25)*rot, 0f, (float)Random.Range(-25,25)*rot);
 			//Building.transform.localScale
 			Building.transform.position=centers.ToArray()[i];
 			Building.AddComponent<MeshRenderer> ();
+			Building.AddComponent<MeshFilter> ();
 			Building.AddComponent<MeshCollider> ();
-			Building.GetComponent<MeshRenderer>().material = new Material (Shader.Find("Specular"));
+			Building.AddComponent<CollisionsBuilding> ();
+			//Building.GetComponent<MeshRenderer>().material = new Material (Shader.Find("Specular"));
+			//Building.GetComponent<MeshRenderer> ().material.color = Color.green;
+			Building.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.blue);
+			Building.name = "building_" + i;
 		}
+
 		for(int i =0;i<(edges.Count/2);i++){
 			MakeStreet (edges.ToArray()[2*i],edges.ToArray()[2*i+1],5,i);
 		}
@@ -53,7 +69,6 @@ public class Generator : MonoBehaviour {
 		vertex.Add (new Vector3(floorMax.x,(float)-0.001,0));
 		vertex.Add (new Vector3(floorMax.x,(float)-0.001,floorMax.z));
 		vertex.Add (new Vector3(0,(float)-0.001,floorMax.z));
-		Color[] colors = new Color[vertex.ToArray ().Length];
 		tri.Add (0);
 		tri.Add (1);
 		tri.Add (2);
@@ -118,17 +133,20 @@ public class Generator : MonoBehaviour {
 		street.AddComponent<MeshRenderer> ();
 		street.AddComponent<MeshFilter> ();
 		street.GetComponent<MeshFilter> ().mesh = meshA;
+		street.AddComponent<MeshCollider> ();
+		street.GetComponent<MeshRenderer>().material.SetColor("_Color1",Color.blue);
 		street.transform.position=a+(b-a)/2;
 		Vector3 temp = street.transform.localScale;
 		temp.y=(b - a).magnitude;
 		street.transform.localScale = temp;
 		street.transform.up = new Vector3 (0, 1, 0);
 		street.transform.Rotate(new Vector3 (street.transform.rotation.x,Vector2.Angle(new Vector2(b.x-a.x,b.z-a.z),new Vector2(0,1)),street.transform.rotation.z));
-		Material material = new Material(Shader.Find("Specular"));
-		material.color = Color.black;
-		street.GetComponent<MeshRenderer> ().material = material;
-		street.AddComponent<MeshCollider> ();
+		//Material material = new Material(Shader.Find("Specular"));
+		//material.color = Color.black;
+		//street.GetComponent<MeshRenderer> ().material = material;
+
 	}
 
 
 }
+	

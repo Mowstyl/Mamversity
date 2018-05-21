@@ -8,7 +8,7 @@ public class VoronoiDemo : MonoBehaviour
 	
 	//[SerializeField]
 	private int
-		m_pointCount = 40;
+		m_pointCount = 30;
 
 	private List<Vector2> m_points;
 	private float m_mapWidth = 150;

@@ -58,3 +58,11 @@ MonoBehaviour:
   - {fileID: 1137025506280882, guid: 03c0d80c9e8787d4c981fbe87edb5685, type: 2}
   - {fileID: 1982341826511304, guid: 0f8713b461f26c047af83ac5b635a87e, type: 2}
   scale: 1
+  centers: []
+  edges: []
+  floorMax: {x: 0, y: 0, z: 0}
+  floorMin: {x: 0, y: 0, z: 0}
+  rot: 0
+  mat2: {fileID: 2100000, guid: 18ee1753c893a4d50ae452c73846ec59, type: 2}
+  materials: []
+  m_Material: {fileID: 2100000, guid: 18ee1753c893a4d50ae452c73846ec59, type: 2}
